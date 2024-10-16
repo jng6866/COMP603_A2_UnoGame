@@ -12,6 +12,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import java.io.File;                // Import for java.io.File
+import javax.swing.ImageIcon;       // Ensures that ImageIcon class is recognized
 
 /**
  *
@@ -43,6 +45,7 @@ public class GameStage extends javax.swing.JFrame {
         topCardButton.setIcon(new javax.swing.ImageIcon("/Users/haydenwinterburn/images/small/" + game.getTopCardImage()));
         setButtonIcons();
     }
+    
     public void setButtonIcons(){
         //Get Uno cards as objects, converts to string
         String listString = game.getPlayerHand(game.getCurrentPlayer())
@@ -50,6 +53,7 @@ public class GameStage extends javax.swing.JFrame {
         String[] cardNames = listString.split(",");
         cardIds = new ArrayList<>(Arrays.asList(cardNames));
         
+//      Old file path type: keep just in case other one fails to work
 //        for(int i = 0; i < cardIds.size(); i++){
 //            cardButtons.get(i).setIcon(new javax.swing.ImageIcon("/Users/haydenwinterburn/images/small/" + cardIds.get(i) + ".png"));
 //        }
@@ -57,22 +61,40 @@ public class GameStage extends javax.swing.JFrame {
 //        for(int j = cardIds.size(); j < cardButtons.size(); j++){
 //            cardButtons.get(j).setIcon(null);
 //        }
-        
-        // Ensure that the first 7 buttons (top row) are filled first
         int totalCards = cardIds.size();
         for (int i = 0; i < totalCards && i < 7; i++) {  // First 7 buttons (slots 1–7)
-            cardButtons.get(i).setIcon(new javax.swing.ImageIcon("/Users/haydenwinterburn/images/small/" + cardIds.get(i) + ".png"));
-        }
+            // Construct a relative path to the images
+            String relativePath = System.getProperty("user.dir") + "/resources/images/small/" + cardIds.get(i) + ".png";
+            File imgFile = new File(relativePath);
 
-        // If more than 7 cards, place the remaining ones in the bottom row (slots 8–14)
+            if (imgFile.exists()) {
+                ImageIcon icon = new ImageIcon(imgFile.getAbsolutePath());
+                cardButtons.get(i).setIcon(icon);
+            } else {
+                System.out.println("Image file not found: " + relativePath);
+            }
+        }
+        //      Old file path type: keep just in case other one fails to work
+//            for (int j = 7; j < totalCards && j < 14; j++) {  // Buttons (slots 8–14)
+//                cardButtons.get(j).setIcon(new javax.swing.ImageIcon("/Users/haydenwinterburn/images/small/" + cardIds.get(j) + ".png"));
+//            }
+            // If more than 7 cards, place the remaining ones in the bottom row (slots 8–14)
         for (int j = 7; j < totalCards && j < 14; j++) {  // Buttons (slots 8–14)
-            cardButtons.get(j).setIcon(new javax.swing.ImageIcon("/Users/haydenwinterburn/images/small/" + cardIds.get(j) + ".png"));
+            String relativePath = System.getProperty("user.dir") + "/resources/images/small/" + cardIds.get(j) + ".png";
+            File imgFile = new File(relativePath);
+
+            if (imgFile.exists()) {
+                ImageIcon icon = new ImageIcon(imgFile.getAbsolutePath());
+                cardButtons.get(j).setIcon(icon);
+            } else {
+                System.out.println("Image file not found: " + relativePath);
+            }
         }
 
-        // Clear any remaining buttons if there are fewer than 14 cards
-        for (int k = totalCards; k < cardButtons.size(); k++) {
-            cardButtons.get(k).setIcon(null);  // Set the icon to null if no card
-        }
+            // Clear any remaining buttons if there are fewer than 14 cards
+            for (int k = totalCards; k < cardButtons.size(); k++) {
+                cardButtons.get(k).setIcon(null);  // Set the icon to null if no card
+            }
     }
     public void populateArrayList(){
         
@@ -245,7 +267,6 @@ public class GameStage extends javax.swing.JFrame {
         pidNameLabel.setFont(new java.awt.Font("Helvetica Neue", 1, 48)); // NOI18N
         pidNameLabel.setForeground(new java.awt.Color(255, 255, 255));
 
-        downButton.setIcon(new javax.swing.ImageIcon("/Users/haydenwinterburn/images/small/Deck.png")); // NOI18N
         downButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 downButtonActionPerformed(evt);
@@ -316,7 +337,7 @@ public class GameStage extends javax.swing.JFrame {
                 .addGap(31, 31, 31)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(topCardButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(downButton, javax.swing.GroupLayout.PREFERRED_SIZE, 140, Short.MAX_VALUE))
+                    .addComponent(downButton, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -565,6 +586,17 @@ public class GameStage extends javax.swing.JFrame {
 
     private void downButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_downButtonActionPerformed
         // TODO add your handling code here:
+        // Constructs relative path to Deck.png image
+        String relativePath = System.getProperty("user.dir") + "/resources/images/small/Deck.png";
+        File imgFile = new File(relativePath);
+
+        // Check if the image file exists and set it as the icon of downButton
+        if (imgFile.exists()) {
+            ImageIcon icon = new ImageIcon(imgFile.getAbsolutePath());
+            downButton.setIcon(icon);
+        } else {
+            System.out.println("Image file not found: " + relativePath);
+        }
     }//GEN-LAST:event_downButtonActionPerformed
 
     /**

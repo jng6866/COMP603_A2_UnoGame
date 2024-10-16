@@ -19,8 +19,22 @@ public class InvalidColourSubmissionException extends Exception{
         this.expected = expected;
     }
 
-    InvalidColourSubmissionException(JLabel message, Card.Colour colour, Card.Colour validColour) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    // Constructor with JLabel (assuming the label is used to display error messages in GUI)
+    public InvalidColourSubmissionException(JLabel messageLabel, Card.Colour actual, Card.Colour expected) {
+        super("Invalid move. Expected color: " + expected + ", given color: " + actual);
+        this.actual = actual;
+        this.expected = expected;
+        messageLabel.setText(getMessage()); // Update JLabel with the exception message
     }
-    
+
+    // Getter methods for accessing the colors involved in the exception
+    public Card.Colour getExpected() {
+        return expected;
+    }
+
+    public Card.Colour getActual() {
+        return actual;
+    }
 }
+    
+

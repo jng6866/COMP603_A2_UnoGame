@@ -56,6 +56,16 @@ public class GameStage extends javax.swing.JFrame {
             System.out.println("Image file not found: " + relativePath);
             topCardButton.setText("Image not found");
         }
+        String DownButtonrelativePath = System.getProperty("user.dir") + "/resources/images/small/Deck.png";
+        File downButtonImgFile = new File(DownButtonrelativePath);
+
+        // Check if the image file exists and set it as the icon of downButton
+        if (downButtonImgFile.exists()) {
+            ImageIcon icon = new ImageIcon(downButtonImgFile.getAbsolutePath());
+            downButton.setIcon(icon);
+        } else {
+            System.out.println("Image file not found: " + DownButtonrelativePath);
+        }
 
     }
     public void setButtonIcons(){
@@ -175,6 +185,7 @@ public class GameStage extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("UnoGame");
+        setLocation(new java.awt.Point(0, 0));
         setMaximumSize(new java.awt.Dimension(1280, 720));
         setMinimumSize(new java.awt.Dimension(1280, 720));
 
@@ -645,16 +656,7 @@ public class GameStage extends javax.swing.JFrame {
     private void downButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_downButtonActionPerformed
         // TODO add your handling code here:
         // Constructs relative path to Deck.png image
-        String relativePath = System.getProperty("user.dir") + "/resources/images/small/Deck.png";
-        File imgFile = new File(relativePath);
-
-        // Check if the image file exists and set it as the icon of downButton
-        if (imgFile.exists()) {
-            ImageIcon icon = new ImageIcon(imgFile.getAbsolutePath());
-            downButton.setIcon(icon);
-        } else {
-            System.out.println("Image file not found: " + relativePath);
-        }
+        
     }//GEN-LAST:event_downButtonActionPerformed
 
     /**

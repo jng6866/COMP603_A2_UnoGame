@@ -150,7 +150,6 @@ public class PopUp extends javax.swing.JFrame {
         declaredColour = pickColour.chooseColour(playerHand.get(choice));
 
         if(declaredColour != null){
-
             try {
                 game.submitPlayerCard(game.getCurrentPlayer(), playerHand.get(choice), declaredColour);
             } catch (InvalidColourSubmissionException ex) {
@@ -167,19 +166,20 @@ public class PopUp extends javax.swing.JFrame {
             if(declaredColour != Card.Colour.Wild){
                 gamestage.setPidName(game.getCurrentPlayer());
                 gamestage.setButtonIcons();
-                topCardButton.setIcon(new javax.swing.ImageIcon("/Users/haydenwinterburn/images/small/" + cardImage + ".png"));
+                //topCardButton.setIcon(new javax.swing.ImageIcon("/Users/haydenwinterburn/images/small/" + cardImage + ".png"));
 
-                String basePath = System.getProperty("user.dir") + "/resources/images/small/";
-                String imagePath = basePath + cardImage + ".png";
-                File imgFile = new File(imagePath);
-
-                if (imgFile.exists()) {
-                    topCardButton.setIcon(new ImageIcon(imgFile.getAbsolutePath()));
-                } else {
-                    System.out.println("Top card image not found at path: " + imagePath);
-                    topCardButton.setText("Image not found");
-                }
-
+//                String basePath = System.getProperty("user.dir") + "/resources/images/small/";
+//                String imagePath = basePath + cardImage + ".png";
+//                File imgFile = new File(imagePath);
+//
+//                if (imgFile.exists()) {
+//                    topCardButton.setIcon(new ImageIcon(imgFile.getAbsolutePath()));
+//                    gamestage.updateTopCardColor();
+//                } else {
+//                    System.out.println("Top card image not found at path: " + imagePath);
+//                    topCardButton.setText("Image not found");
+//                }
+                gamestage.updateTopCardButton();
                 gamestage.updateTopCardColor();
                 this.dispose();
             }

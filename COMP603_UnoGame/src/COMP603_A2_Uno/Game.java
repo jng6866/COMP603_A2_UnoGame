@@ -25,7 +25,7 @@ public class Game {
     private ArrayList<Card> stockPile;
     private Card.Colour validColour;
     private Card.Value  validValue;
-    
+    private GameStage gamestage;
     boolean direction;
     
     public Game(String[] pids){
@@ -36,6 +36,7 @@ public class Game {
         currentPlayer = 0;
         direction = false;
         playerHand = new ArrayList<ArrayList<Card>>();
+        this.gamestage = gamestage;
         
         for(int i = 0; i < pids.length; i++){
             ArrayList<Card> hand = new ArrayList<Card>(Arrays.asList(deck.drawCard(7)));
@@ -188,7 +189,6 @@ public class Game {
         validColour = declaredColour;  // Set to the declared color
         validValue = card.getValue();
     }
-
     // Ensure the card being played is valid
     else if (!validCardPlay(card)) {
         JLabel message = new JLabel("Invalid move. Expected colour: " + validColour +
@@ -200,7 +200,7 @@ public class Game {
     }
     else{
         validColour = card.getColour();
-        validValue = card.getValue(); 
+        validValue = card.getValue();
     }
 
     // Remove the card from the player's hand

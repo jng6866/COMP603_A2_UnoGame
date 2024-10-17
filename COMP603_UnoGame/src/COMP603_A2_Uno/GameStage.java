@@ -44,8 +44,20 @@ public class GameStage extends javax.swing.JFrame {
         setPidName();
         setButtonIcons();
         updateTopCardColor();
+        updateTopCardButton();
         //topCardButton.setIcon(new javax.swing.ImageIcon("/Users/haydenwinterburn/images/small/" + game.getTopCardImage()));
-        
+        // Check if the image file exists and set it as the icon of downButton
+        String DownButtonrelativePath = System.getProperty("user.dir") + "/resources/images/small/Deck.png";
+        File downButtonImgFile = new File(DownButtonrelativePath);
+        if (downButtonImgFile.exists()) {
+            ImageIcon icon = new ImageIcon(downButtonImgFile.getAbsolutePath());
+            downButton.setIcon(icon);
+        } else {
+            System.out.println("Image file not found: " + DownButtonrelativePath);
+        }
+
+    }
+    public void updateTopCardButton(){
         String relativePath = System.getProperty("user.dir") + "/resources/images/small/" + game.getTopCardImage();
             File imgFile = new File(relativePath);
 
@@ -56,17 +68,6 @@ public class GameStage extends javax.swing.JFrame {
             System.out.println("Image file not found: " + relativePath);
             topCardButton.setText("Image not found");
         }
-        String DownButtonrelativePath = System.getProperty("user.dir") + "/resources/images/small/Deck.png";
-        File downButtonImgFile = new File(DownButtonrelativePath);
-
-        // Check if the image file exists and set it as the icon of downButton
-        if (downButtonImgFile.exists()) {
-            ImageIcon icon = new ImageIcon(downButtonImgFile.getAbsolutePath());
-            downButton.setIcon(icon);
-        } else {
-            System.out.println("Image file not found: " + DownButtonrelativePath);
-        }
-
     }
     public void setButtonIcons(){
         //Get Uno cards as objects, converts to string
@@ -126,6 +127,8 @@ public class GameStage extends javax.swing.JFrame {
             topCardColourLabel.setText(colorText);
         }
     }
+    
+    
     public void populateArrayList(){
         
         cardButtons.add(jButton1);

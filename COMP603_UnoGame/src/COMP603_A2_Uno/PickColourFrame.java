@@ -5,7 +5,9 @@
 package COMP603_A2_Uno;
 
 import java.awt.Font;
+import java.io.File;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -188,8 +190,21 @@ public class PickColourFrame extends javax.swing.JFrame {
         popUp.declaredColour = Card.Colour.Red;
         popUp.gamestage.setPidName(popUp.game.getCurrentPlayer());
         popUp.gamestage.setButtonIcons();
-        popUp.topCardButton.setIcon(new javax.swing.ImageIcon("/Users/haydenwinterburn/images/small/" + popUp.game.getTopCardImage()));
+        //popUp.topCardButton.setIcon(new javax.swing.ImageIcon("/Users/haydenwinterburn/images/small/" + popUp.game.getTopCardImage()));
+        
+        String imagePath = System.getProperty("user.dir") + "/resources/images/small/" + popUp.game.getTopCardImage();
+        File imgFile = new File(imagePath);
+
+        if (imgFile.exists()) {
+            ImageIcon icon = new ImageIcon(imgFile.getAbsolutePath());
+            popUp.topCardButton.setIcon(icon);
+        } else {
+            System.out.println("Top card image not found at path: " + imagePath);
+            popUp.topCardButton.setText("Image not found");
+        }
+        
         popUp.game.setCardColour(Card.Colour.Red);
+        popUp.gamestage.updateTopCardColor();
         
         this.dispose();
         popUp.dispose();
@@ -210,8 +225,21 @@ public class PickColourFrame extends javax.swing.JFrame {
         popUp.declaredColour = Card.Colour.Green;
         popUp.gamestage.setPidName(popUp.game.getCurrentPlayer());
         popUp.gamestage.setButtonIcons();
-        popUp.topCardButton.setIcon(new javax.swing.ImageIcon("/Users/haydenwinterburn/images/small/" + popUp.game.getTopCardImage()));
+        //popUp.topCardButton.setIcon(new javax.swing.ImageIcon("/Users/haydenwinterburn/images/small/" + popUp.game.getTopCardImage()));
+        
+        String imagePath = System.getProperty("user.dir") + "/resources/images/small/" + popUp.game.getTopCardImage();
+        File imgFile = new File(imagePath);
+
+        if (imgFile.exists()) {
+            ImageIcon icon = new ImageIcon(imgFile.getAbsolutePath());
+            popUp.topCardButton.setIcon(icon);
+        } else {
+            System.out.println("Top card image not found at path: " + imagePath);
+            popUp.topCardButton.setText("Image not found");
+        }
+        
         popUp.game.setCardColour(Card.Colour.Green);
+        popUp.gamestage.updateTopCardColor();
         
         popUp.dispose();
     }//GEN-LAST:event_greenButtonActionPerformed
@@ -230,8 +258,21 @@ public class PickColourFrame extends javax.swing.JFrame {
         popUp.declaredColour = Card.Colour.Blue;
         popUp.gamestage.setPidName(popUp.game.getCurrentPlayer());
         popUp.gamestage.setButtonIcons();
-        popUp.topCardButton.setIcon(new javax.swing.ImageIcon("/Users/haydenwinterburn/images/small/" + popUp.game.getTopCardImage()));
+        //popUp.topCardButton.setIcon(new javax.swing.ImageIcon("/Users/haydenwinterburn/images/small/" + popUp.game.getTopCardImage()));
+        
+        String imagePath = System.getProperty("user.dir") + "/resources/images/small/" + popUp.game.getTopCardImage();
+        File imgFile = new File(imagePath);
+        
+        if (imgFile.exists()) {
+            ImageIcon icon = new ImageIcon(imgFile.getAbsolutePath());
+            popUp.topCardButton.setIcon(icon);
+        } else {
+            System.out.println("Top card image not found at path: " + imagePath);
+            popUp.topCardButton.setText("Image not found");
+        }
+        
         popUp.game.setCardColour(Card.Colour.Blue);
+        popUp.gamestage.updateTopCardColor();
         
         popUp.dispose();
     }//GEN-LAST:event_blueButtonActionPerformed
@@ -250,8 +291,21 @@ public class PickColourFrame extends javax.swing.JFrame {
         popUp.declaredColour = Card.Colour.Yellow;
         popUp.gamestage.setPidName(popUp.game.getCurrentPlayer());
         popUp.gamestage.setButtonIcons();
-        popUp.topCardButton.setIcon(new javax.swing.ImageIcon("/Users/haydenwinterburn/images/small/" + popUp.game.getTopCardImage()));
+        //popUp.topCardButton.setIcon(new javax.swing.ImageIcon("/Users/haydenwinterburn/images/small/" + popUp.game.getTopCardImage()));
+        
+        String imagePath = System.getProperty("user.dir") + "/resources/images/small/" + popUp.game.getTopCardImage();
+        File imgFile = new File(imagePath);
+        
+        if (imgFile.exists()) {
+            ImageIcon icon = new ImageIcon(imgFile.getAbsolutePath());
+            popUp.topCardButton.setIcon(icon);
+        } else {
+            System.out.println("Top card image not found at path: " + imagePath);
+            popUp.topCardButton.setText("Image not found");
+        }
+       
         popUp.game.setCardColour(Card.Colour.Yellow);
+        popUp.gamestage.updateTopCardColor();
         
         popUp.dispose();
     }//GEN-LAST:event_yellowButtonActionPerformed

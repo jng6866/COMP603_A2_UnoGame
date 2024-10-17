@@ -57,7 +57,7 @@ public class Game {
         }
         
         if(card.getValue() == Card.Value.Skip){
-            JLabel message = new JLabel(playerIds[currentPlayer] + " is skipped.");
+            JLabel message = new JLabel(playerIds[currentPlayer] + " was skipped.");
             message.setFont(new Font("Arial", Font.BOLD, 48));
             JOptionPane.showConfirmDialog(null, message);
             
@@ -74,7 +74,7 @@ public class Game {
         }
         
         if(card.getValue() == Card.Value.Reverse){
-            JLabel message = new JLabel(playerIds[currentPlayer] + " Game direction reversed.");
+            JLabel message = new JLabel(playerIds[currentPlayer] + " reversed the game direcion.");
             message.setFont(new Font("Arial", Font.BOLD, 48));
             JOptionPane.showConfirmDialog(null, message);
             
@@ -147,7 +147,7 @@ public class Game {
     
     public void checkPlayerTurn(String pid) throws InvalidPlayerTurnException{
         if(this.playerIds[this.currentPlayer] != pid){
-            throw new InvalidPlayerTurnException("it is not " + pid + "'s turn", pid);
+            throw new InvalidPlayerTurnException("It is not " + pid + "'s turn", pid);
         }
     }
     
@@ -191,7 +191,7 @@ public class Game {
 
     // Ensure the card being played is valid
     else if (!validCardPlay(card)) {
-        JLabel message = new JLabel("Invalid move. Expected color: " + validColour +
+        JLabel message = new JLabel("Invalid move. Expected colour: " + validColour +
                 ". Given color: " + card.getColour() + ".");
         message.setFont(new Font("Arial", Font.BOLD, 48));
         JOptionPane.showMessageDialog(null, message);

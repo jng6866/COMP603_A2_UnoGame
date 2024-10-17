@@ -21,7 +21,7 @@ import javax.swing.ImageIcon;       // Ensures that ImageIcon class is recognize
  */
 public class GameStage extends javax.swing.JFrame {
     
-    private AddPlayerNames addPlayers = new AddPlayerNames();
+    
     ArrayList<String> temp = new ArrayList<>();
     String[] pids;
     Game game;
@@ -36,14 +36,17 @@ public class GameStage extends javax.swing.JFrame {
         initComponents();
         temp = playerIds;
         pids = temp.toArray(new String[temp.size()]);
-        game = new Game(pids);
-        
-        populateArrayList();
-        game.start(game);
-        setPidName();
-        
         topCardButton.setIcon(new javax.swing.ImageIcon("/Users/haydenwinterburn/images/small/" + game.getTopCardImage()));
+        
+
+        setPidName();
+        populateArrayList();
         setButtonIcons();
+        updateTopCardColor();
+        
+        game.start(game);
+
+        
     }
     
     public void setButtonIcons(){
@@ -95,6 +98,14 @@ public class GameStage extends javax.swing.JFrame {
             for (int k = totalCards; k < cardButtons.size(); k++) {
                 cardButtons.get(k).setIcon(null);  // Set the icon to null if no card
             }
+    }
+    
+    public void updateTopCardColor() {
+        if (game != null && game.getTopCard() != null) {
+            Card topCard = game.getTopCard();
+            String colorText = "TopCard Colour: " + topCard.getColour().toString();
+            topCardColourLabel.setText(colorText);
+        }
     }
     public void populateArrayList(){
         
@@ -150,6 +161,8 @@ public class GameStage extends javax.swing.JFrame {
         topCardButton = new javax.swing.JButton();
         pidNameLabel = new javax.swing.JLabel();
         downButton = new javax.swing.JButton();
+        topCardColourLabel = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("UnoGame");
@@ -157,18 +170,24 @@ public class GameStage extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(1280, 720));
 
         jPanel1.setBackground(new java.awt.Color(220, 75, 75));
+        jPanel1.setToolTipText("");
         jPanel1.setMaximumSize(new java.awt.Dimension(1280, 720));
         jPanel1.setMinimumSize(new java.awt.Dimension(1280, 720));
         jPanel1.setPreferredSize(new java.awt.Dimension(1280, 720));
 
+        DrawCardButton.setBackground(new java.awt.Color(229, 105, 105));
         DrawCardButton.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
+        DrawCardButton.setForeground(new java.awt.Color(255, 255, 255));
         DrawCardButton.setText("+1 card");
+        DrawCardButton.setBorderPainted(false);
         DrawCardButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 DrawCardButtonActionPerformed(evt);
             }
         });
 
+        jButton1.setBackground(new java.awt.Color(229, 105, 105));
+        jButton1.setBorderPainted(false);
         jButton1.setPreferredSize(new java.awt.Dimension(103, 146));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -176,6 +195,8 @@ public class GameStage extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setBackground(new java.awt.Color(229, 105, 105));
+        jButton2.setBorderPainted(false);
         jButton2.setPreferredSize(new java.awt.Dimension(103, 146));
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -183,80 +204,106 @@ public class GameStage extends javax.swing.JFrame {
             }
         });
 
+        jButton3.setBackground(new java.awt.Color(229, 105, 105));
+        jButton3.setBorderPainted(false);
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
         });
 
+        jButton4.setBackground(new java.awt.Color(229, 105, 105));
+        jButton4.setBorderPainted(false);
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
             }
         });
 
+        jButton5.setBackground(new java.awt.Color(229, 105, 105));
         jButton5.setToolTipText("");
+        jButton5.setBorderPainted(false);
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
             }
         });
 
+        jButton6.setBackground(new java.awt.Color(229, 105, 105));
+        jButton6.setBorderPainted(false);
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
             }
         });
 
+        jButton7.setBackground(new java.awt.Color(229, 105, 105));
+        jButton7.setBorderPainted(false);
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton7ActionPerformed(evt);
             }
         });
 
+        jButton8.setBackground(new java.awt.Color(229, 105, 105));
+        jButton8.setBorderPainted(false);
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton8ActionPerformed(evt);
             }
         });
 
+        jButton9.setBackground(new java.awt.Color(229, 105, 105));
+        jButton9.setBorderPainted(false);
         jButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton9ActionPerformed(evt);
             }
         });
 
+        jButton10.setBackground(new java.awt.Color(229, 105, 105));
+        jButton10.setBorderPainted(false);
         jButton10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton10ActionPerformed(evt);
             }
         });
 
+        jButton11.setBackground(new java.awt.Color(229, 105, 105));
+        jButton11.setBorderPainted(false);
         jButton11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton11ActionPerformed(evt);
             }
         });
 
+        jButton12.setBackground(new java.awt.Color(229, 105, 105));
+        jButton12.setBorderPainted(false);
         jButton12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton12ActionPerformed(evt);
             }
         });
 
+        jButton13.setBackground(new java.awt.Color(229, 105, 105));
         jButton13.setActionCommand("jButton15");
+        jButton13.setBorderPainted(false);
         jButton13.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton13ActionPerformed(evt);
             }
         });
 
+        jButton14.setBackground(new java.awt.Color(229, 105, 105));
+        jButton14.setBorderPainted(false);
         jButton14.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton14ActionPerformed(evt);
             }
         });
 
+        topCardButton.setBackground(new java.awt.Color(229, 105, 105));
+        topCardButton.setBorderPainted(false);
         topCardButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 topCardButtonActionPerformed(evt);
@@ -267,20 +314,30 @@ public class GameStage extends javax.swing.JFrame {
         pidNameLabel.setFont(new java.awt.Font("Helvetica Neue", 1, 48)); // NOI18N
         pidNameLabel.setForeground(new java.awt.Color(255, 255, 255));
 
+        downButton.setBackground(new java.awt.Color(229, 105, 105));
+        downButton.setBorderPainted(false);
         downButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 downButtonActionPerformed(evt);
             }
         });
 
+        topCardColourLabel.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
+        topCardColourLabel.setForeground(new java.awt.Color(255, 255, 255));
+        topCardColourLabel.setText("TopCard Colour: Yellow");
+
+        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 60)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("UnoGame");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(240, 240, 240)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(240, 240, 240)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -289,18 +346,8 @@ public class GameStage extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(DrawCardButton, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(downButton, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(topCardButton, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -313,57 +360,71 @@ public class GameStage extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(pidNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 558, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 245, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(DrawCardButton, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 246, Short.MAX_VALUE))))
+                                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(245, Short.MAX_VALUE))))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(41, 41, 41)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(pidNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 558, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(50, 50, 50))
+                        .addComponent(topCardColourLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(downButton, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(topCardButton, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addGap(41, 41, 41))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(31, 31, 31)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(topCardButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(downButton, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(DrawCardButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(96, 96, 96))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(pidNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(topCardButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(downButton, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(topCardColourLabel)
+                .addGap(96, 96, 96)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(DrawCardButton, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pidNameLabel))
+                .addGap(27, 27, 27)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(96, 96, 96))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -386,7 +447,6 @@ public class GameStage extends javax.swing.JFrame {
             int index = 2;
             String cardId = cardIds.get(index);
             pu = new PopUp(game, index, cardId, cardButtons, this, topCardButton);
-            pu.setBounds(750, 40, 700, 800);
             pu.setVisible(true);
             pu.setResizable(false);
             pu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -399,7 +459,7 @@ public class GameStage extends javax.swing.JFrame {
             int index = 1;
             String cardId = cardIds.get(index);
             pu = new PopUp(game, index, cardId, cardButtons, this, topCardButton);
-            pu.setBounds(750, 40, 700, 800);
+
             pu.setVisible(true);
             pu.setResizable(false);
             pu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -412,7 +472,6 @@ public class GameStage extends javax.swing.JFrame {
             int index = 13;
             String cardId = cardIds.get(index);
             pu = new PopUp(game, index, cardId, cardButtons, this, topCardButton);
-            pu.setBounds(750, 40, 700, 800);
             pu.setVisible(true);
             pu.setResizable(false);
             pu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -425,7 +484,6 @@ public class GameStage extends javax.swing.JFrame {
             int index = 3;
             String cardId = cardIds.get(index);
             pu = new PopUp(game, index, cardId, cardButtons, this, topCardButton);
-            pu.setBounds(750, 40, 700, 800);
             pu.setVisible(true);
             pu.setResizable(false);
             pu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -438,7 +496,6 @@ public class GameStage extends javax.swing.JFrame {
             int index = 4;
             String cardId = cardIds.get(index);
             pu = new PopUp(game, index, cardId, cardButtons, this, topCardButton);
-            pu.setBounds(750, 40, 700, 800);
             pu.setVisible(true);
             pu.setResizable(false);
             pu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -451,7 +508,6 @@ public class GameStage extends javax.swing.JFrame {
             int index = 5;
             String cardId = cardIds.get(index);
             pu = new PopUp(game, index, cardId, cardButtons, this, topCardButton);
-            pu.setBounds(750, 40, 700, 800);
             pu.setVisible(true);
             pu.setResizable(false);
             pu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -464,7 +520,6 @@ public class GameStage extends javax.swing.JFrame {
             int index = 11;
             String cardId = cardIds.get(index);
             pu = new PopUp(game, index, cardId, cardButtons, this, topCardButton);
-            pu.setBounds(750, 40, 700, 800);
             pu.setVisible(true);
             pu.setResizable(false);
             pu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -477,7 +532,6 @@ public class GameStage extends javax.swing.JFrame {
             int index = 6;
             String cardId = cardIds.get(index);
             pu = new PopUp(game, index, cardId, cardButtons, this, topCardButton);
-            pu.setBounds(750, 40, 700, 800);
             pu.setVisible(true);
             pu.setResizable(false);
             pu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -490,7 +544,6 @@ public class GameStage extends javax.swing.JFrame {
             int index = 10;
             String cardId = cardIds.get(index);
             pu = new PopUp(game, index, cardId, cardButtons, this, topCardButton);
-            pu.setBounds(750, 40, 700, 800);
             pu.setVisible(true);
             pu.setResizable(false);
             pu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -503,7 +556,6 @@ public class GameStage extends javax.swing.JFrame {
             int index = 9;
             String cardId = cardIds.get(index);
             pu = new PopUp(game, index, cardId, cardButtons, this, topCardButton);
-            pu.setBounds(750, 40, 700, 800);
             pu.setVisible(true);
             pu.setResizable(false);
             pu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -516,7 +568,6 @@ public class GameStage extends javax.swing.JFrame {
             int index = 8;
             String cardId = cardIds.get(index);
             pu = new PopUp(game, index, cardId, cardButtons, this, topCardButton);
-            pu.setBounds(750, 40, 700, 800);
             pu.setVisible(true);
             pu.setResizable(false);
             pu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -529,7 +580,6 @@ public class GameStage extends javax.swing.JFrame {
             int index = 7;
             String cardId = cardIds.get(index);
             pu = new PopUp(game, index, cardId, cardButtons, this, topCardButton);
-            pu.setBounds(750, 40, 700, 800);
             pu.setVisible(true);
             pu.setResizable(false);
             pu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -543,7 +593,6 @@ public class GameStage extends javax.swing.JFrame {
             int index = 0;
             String cardId = cardIds.get(index);
             pu = new PopUp(game, index, cardId, cardButtons, this, topCardButton);
-            pu.setBounds(750, 40, 700, 800);
             pu.setVisible(true);
             pu.setResizable(false);
             pu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -556,7 +605,6 @@ public class GameStage extends javax.swing.JFrame {
             int index = 12;
             String cardId = cardIds.get(index);
             pu = new PopUp(game, index, cardId, cardButtons, this, topCardButton);
-            pu.setBounds(750, 40, 700, 800);
             pu.setVisible(true);
             pu.setResizable(false);
             pu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -565,7 +613,7 @@ public class GameStage extends javax.swing.JFrame {
 
     private void DrawCardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DrawCardButtonActionPerformed
         // TODO add your handling code here:
-        JLabel message = new JLabel(game.getCurrentPlayer() + "drew a card.");
+        JLabel message = new JLabel(game.getCurrentPlayer() + " drew a card.");
         message.setFont(new Font("Helvetica Neue", Font.BOLD, 48));
         JOptionPane.showMessageDialog(null, message);
             
@@ -578,6 +626,7 @@ public class GameStage extends javax.swing.JFrame {
         //Sets name and icons for current player
         this.setPidName(game.getCurrentPlayer());
         this.setButtonIcons();
+        updateTopCardColor();
     }//GEN-LAST:event_DrawCardButtonActionPerformed
 
     private void topCardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_topCardButtonActionPerformed
@@ -654,8 +703,10 @@ public class GameStage extends javax.swing.JFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel pidNameLabel;
     private javax.swing.JButton topCardButton;
+    private javax.swing.JLabel topCardColourLabel;
     // End of variables declaration//GEN-END:variables
 }

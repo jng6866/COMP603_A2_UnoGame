@@ -4,11 +4,12 @@
  */
 package COMP603_A2_Uno;
 
+import java.io.File;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 
 /**
  *
@@ -16,10 +17,6 @@ import javax.swing.JLabel;
  */
 public class PopUp extends javax.swing.JFrame {
 
-    /**
-     * Creates new form PopUp
-     */
-    
     String cardImage = "";
     Game game;
     ArrayList<Card> playerHand;
@@ -37,20 +34,31 @@ public class PopUp extends javax.swing.JFrame {
         playerHand = game.getPlayerHand(game.getCurrentPlayer());
         choice = index;
         this.cardButtons = cardButtons;
-        cardLabel.setIcon(new javax.swing.ImageIcon("/Users/haydenwinterburn/images/small/" + cardImage + ".png"));
+//        cardLabel.setIcon(new javax.swing.ImageIcon("/Users/haydenwinterburn/images/small/" + cardImage + ".png"));
         this.gamestage = gamestage;
         this.topCardButton = topCardButton;
         
-        // Set the image for the cardLabel using the absolute file path
-        String filePath = "/Users/haydenwinterburn/images/small/" + cardImage + ".png";  // Replace with your correct path
-        java.io.File file = new java.io.File(filePath);
+//        // Set the image for the cardLabel using the absolute file path
+//        String filePath = "/Users/haydenwinterburn/images/small/" + cardImage + ".png";  // Replace with your correct path
+//        java.io.File file = new java.io.File(filePath);
+//
+//        if (file.exists()) {
+//            cardLabel.setIcon(new javax.swing.ImageIcon(filePath));
+//        } else {
+//            System.out.println("Card image not found at path: " + filePath);
+//            cardLabel.setText("Image not found");
+//            }
+        
+        String basePath = System.getProperty("user.dir") + "/resources/images/small/";
+        String imagePath = basePath + cardImage + ".png";
+        File imgFile = new File(imagePath);
 
-        if (file.exists()) {
-            cardLabel.setIcon(new javax.swing.ImageIcon(filePath));
+        if (imgFile.exists()) {
+            cardLabel.setIcon(new ImageIcon(imgFile.getAbsolutePath()));  // Directly setting the ImageIcon
         } else {
-            System.out.println("Card image not found at path: " + filePath);
+            System.out.println("Card image not found at path: " + imagePath);
             cardLabel.setText("Image not found");
-            }
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -62,29 +70,35 @@ public class PopUp extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        useCardButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
+        useCardButton = new javax.swing.JButton();
         cardLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setLocation(new java.awt.Point(0, 0));
+        setLocationByPlatform(true);
 
-        jPanel1.setBackground(new java.awt.Color(220, 72, 72));
+        jPanel1.setBackground(new java.awt.Color(220, 75, 75));
 
-        useCardButton.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
-        useCardButton.setForeground(new java.awt.Color(255, 255, 255));
-        useCardButton.setText("USE CARD");
-        useCardButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                useCardButtonActionPerformed(evt);
-            }
-        });
-
-        cancelButton.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
+        cancelButton.setBackground(new java.awt.Color(229, 105, 105));
+        cancelButton.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         cancelButton.setForeground(new java.awt.Color(255, 255, 255));
         cancelButton.setText("CANCEL");
+        cancelButton.setBorderPainted(false);
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelButtonActionPerformed(evt);
+            }
+        });
+
+        useCardButton.setBackground(new java.awt.Color(229, 105, 105));
+        useCardButton.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        useCardButton.setForeground(new java.awt.Color(255, 255, 255));
+        useCardButton.setText("USE CARD");
+        useCardButton.setBorderPainted(false);
+        useCardButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                useCardButtonActionPerformed(evt);
             }
         });
 
@@ -97,38 +111,36 @@ public class PopUp extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(75, 75, 75)
-                        .addComponent(useCardButton, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
-                        .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(28, 28, 28)
+                        .addComponent(useCardButton, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(175, 175, 175)
-                        .addComponent(cardLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(75, Short.MAX_VALUE))
+                        .addGap(138, 138, 138)
+                        .addComponent(cardLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(35, Short.MAX_VALUE)
-                .addComponent(cardLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
+                .addContainerGap(58, Short.MAX_VALUE)
+                .addComponent(cardLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(useCardButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(50, 50, 50))
+                    .addComponent(useCardButton)
+                    .addComponent(cancelButton))
+                .addGap(30, 30, 30))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -138,27 +150,42 @@ public class PopUp extends javax.swing.JFrame {
         // TODO add your handling code here:
         PickColourFrame pickColour = new PickColourFrame(this);
         declaredColour = pickColour.chooseColour(playerHand.get(choice));
-        
+
         if(declaredColour != null){
+
             try {
                 game.submitPlayerCard(game.getCurrentPlayer(), playerHand.get(choice), declaredColour);
             } catch (InvalidColourSubmissionException ex) {
-                Logger.getLogger(PopUp.class.getName()).log(Level.SEVERE, null, ex);
+                java.util.logging.Logger.getLogger(PopUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
             } catch (InvalidPlayerTurnException ex) {
-                Logger.getLogger(PopUp.class.getName()).log(Level.SEVERE, null, ex);
+                java.util.logging.Logger.getLogger(PopUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
             } catch (InvalidValueSubmissionException ex) {
-                Logger.getLogger(PopUp.class.getName()).log(Level.SEVERE, null, ex);
+                java.util.logging.Logger.getLogger(PopUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
             }
-            
+
             this.revalidate();
-            
+
+            //change top card of stockpile when a wild card is used
             if(declaredColour != Card.Colour.Wild){
                 gamestage.setPidName(game.getCurrentPlayer());
                 gamestage.setButtonIcons();
                 topCardButton.setIcon(new javax.swing.ImageIcon("/Users/haydenwinterburn/images/small/" + cardImage + ".png"));
+
+                String basePath = System.getProperty("user.dir") + "/resources/images/small/";
+                String imagePath = basePath + cardImage + ".png";
+                File imgFile = new File(imagePath);
+
+                if (imgFile.exists()) {
+                    topCardButton.setIcon(new ImageIcon(imgFile.getAbsolutePath()));
+                } else {
+                    System.out.println("Top card image not found at path: " + imagePath);
+                    topCardButton.setText("Image not found");
+                }
+
+                gamestage.updateTopCardColor();
                 this.dispose();
             }
-            
+
         }
     }//GEN-LAST:event_useCardButtonActionPerformed
 
@@ -202,7 +229,6 @@ public class PopUp extends javax.swing.JFrame {
         });
     }
     public PopUp(){}
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;
     private javax.swing.JLabel cardLabel;

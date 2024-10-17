@@ -36,19 +36,28 @@ public class GameStage extends javax.swing.JFrame {
         initComponents();
         temp = playerIds;
         pids = temp.toArray(new String[temp.size()]);
-        topCardButton.setIcon(new javax.swing.ImageIcon("/Users/haydenwinterburn/images/small/" + game.getTopCardImage()));
+        game = new Game(pids);
         
-
-        setPidName();
         populateArrayList();
+        game.start(game);
+        
+        setPidName();
         setButtonIcons();
         updateTopCardColor();
+        //topCardButton.setIcon(new javax.swing.ImageIcon("/Users/haydenwinterburn/images/small/" + game.getTopCardImage()));
         
-        game.start(game);
+        String relativePath = System.getProperty("user.dir") + "/resources/images/small/" + game.getTopCardImage();
+            File imgFile = new File(relativePath);
 
-        
+        if (imgFile.exists()) {
+            ImageIcon icon = new ImageIcon(imgFile.getAbsolutePath());
+            topCardButton.setIcon(icon);
+        } else {
+            System.out.println("Image file not found: " + relativePath);
+            topCardButton.setText("Image not found");
+        }
+
     }
-    
     public void setButtonIcons(){
         //Get Uno cards as objects, converts to string
         String listString = game.getPlayerHand(game.getCurrentPlayer())

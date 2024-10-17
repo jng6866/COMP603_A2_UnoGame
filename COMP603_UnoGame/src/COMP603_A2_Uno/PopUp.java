@@ -75,8 +75,6 @@ public class PopUp extends javax.swing.JFrame {
         cardLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setLocation(new java.awt.Point(0, 0));
-        setLocationByPlatform(true);
 
         jPanel1.setBackground(new java.awt.Color(220, 75, 75));
 

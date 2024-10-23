@@ -13,8 +13,19 @@ public class EndScreen extends javax.swing.JFrame {
     /**
      * Creates new form EndScreen
      */
-    public EndScreen() {
+    private String winner;
+    
+    public EndScreen(String winner) {
         initComponents();
+        this.winner = winner;
+        System.out.println("Winner received in EndScreen: " + winner);
+        if (winner == null) {
+            this.winner = "Unknown Player";  // Assign default if winner is null
+        } else {
+            this.winner = winner;  // Store the winner information in a class-level variable
+        }
+
+        winLabel.setText(winner + " has won the game!");
     }
 
     /**
@@ -27,7 +38,7 @@ public class EndScreen extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        winLabel = new javax.swing.JLabel();
         playButton = new javax.swing.JButton();
         exitButton = new javax.swing.JButton();
 
@@ -36,10 +47,10 @@ public class EndScreen extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(220, 72, 72));
 
-        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Hayden has won the game!");
+        winLabel.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        winLabel.setForeground(new java.awt.Color(255, 255, 255));
+        winLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        winLabel.setText("Hayden has won the game!");
 
         playButton.setBackground(new java.awt.Color(229, 105, 105));
         playButton.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
@@ -71,7 +82,7 @@ public class EndScreen extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(winLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(40, 40, 40)
@@ -84,7 +95,7 @@ public class EndScreen extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(winLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 204, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(exitButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -112,6 +123,7 @@ public class EndScreen extends javax.swing.JFrame {
 
     private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
         // TODO add your handling code here:
+        System.exit(0);
     }//GEN-LAST:event_exitButtonActionPerformed
 
     /**
@@ -144,15 +156,16 @@ public class EndScreen extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new EndScreen().setVisible(true);
+               new EndScreen().setVisible(true);
             }
         });
     }
+    public EndScreen(){};
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton exitButton;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton playButton;
+    private javax.swing.JLabel winLabel;
     // End of variables declaration//GEN-END:variables
 }

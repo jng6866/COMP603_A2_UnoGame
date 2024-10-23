@@ -45,6 +45,7 @@ public class Menu extends javax.swing.JFrame {
         playButton.setText("PLAY");
         playButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         playButton.setBorderPainted(false);
+        playButton.setPreferredSize(new java.awt.Dimension(50, 30));
         playButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 playButtonActionPerformed(evt);
@@ -57,6 +58,7 @@ public class Menu extends javax.swing.JFrame {
         exitButton.setText("EXIT");
         exitButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         exitButton.setBorderPainted(false);
+        exitButton.setPreferredSize(new java.awt.Dimension(50, 30));
         exitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 exitButtonActionPerformed(evt);
@@ -89,10 +91,10 @@ public class Menu extends javax.swing.JFrame {
                 .addGap(120, 120, 120)
                 .addComponent(jLabel1)
                 .addGap(34, 34, 34)
-                .addComponent(playButton)
+                .addComponent(playButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(exitButton)
-                .addContainerGap(107, Short.MAX_VALUE))
+                .addComponent(exitButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(101, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

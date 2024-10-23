@@ -215,9 +215,12 @@ public class Game {
 //    }
     
     if (hasEmptyhand(pid)) {
-        JLabel message = new JLabel(pid + " has won the game!");
-        message.setFont(new Font("Arial", Font.BOLD, 48));
-        JOptionPane.showMessageDialog(null, message);
+//        JLabel message = new JLabel(pid + " has won the game!");
+//        message.setFont(new Font("Arial", Font.BOLD, 48));
+//        JOptionPane.showMessageDialog(null, message);
+        System.out.println("Winner's PID: " + pid);
+        new EndScreen(pid).setVisible(true);
+        gamestage.dispose();
         System.exit(0);  // End the game if the player has no cards left.
     }
 //    // Set the valid color and value for the next turn

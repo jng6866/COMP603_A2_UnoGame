@@ -425,10 +425,10 @@ public class GameStage extends javax.swing.JFrame {
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(topCardColourLabel)
-                .addGap(96, 96, 96)
+                .addGap(55, 55, 55)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(DrawCardButton, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pidNameLabel))
+                    .addComponent(pidNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -697,8 +697,7 @@ public class GameStage extends javax.swing.JFrame {
         });
     }
     //Fixes error in main
-    public GameStage(){  
-    }
+    public GameStage(){}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton DrawCardButton;

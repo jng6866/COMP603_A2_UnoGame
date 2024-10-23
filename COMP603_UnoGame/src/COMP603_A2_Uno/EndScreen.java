@@ -9,7 +9,16 @@ package COMP603_A2_Uno;
  * @author haydenwinterburn
  */
 public class EndScreen extends javax.swing.JFrame {
-
+    
+    
+    //Players in current game
+    //Players current wins
+    //Players current rank
+        //Bronze: 0 - 5
+        //Silver: 6 - 15
+        //Gold: 16 - 30
+        //Master: 31 + 
+    
     /**
      * Creates new form EndScreen
      */
@@ -43,9 +52,9 @@ public class EndScreen extends javax.swing.JFrame {
         exitButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(600, 400));
+        setMaximumSize(new java.awt.Dimension(600, 450));
         setMinimumSize(new java.awt.Dimension(600, 400));
-        setPreferredSize(new java.awt.Dimension(600, 400));
+        setPreferredSize(new java.awt.Dimension(600, 450));
 
         jPanel1.setBackground(new java.awt.Color(220, 72, 72));
         jPanel1.setMaximumSize(new java.awt.Dimension(600, 400));

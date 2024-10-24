@@ -257,7 +257,8 @@ public class EndScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_exitButtonActionPerformed
 
     private void playButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playButton1ActionPerformed
-        // TODO add your handling code here:
+        moreStat statsFrame = new moreStat(); 
+        statsFrame.setVisible(true); 
     }//GEN-LAST:event_playButton1ActionPerformed
 
     /**

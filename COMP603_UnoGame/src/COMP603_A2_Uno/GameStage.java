@@ -38,6 +38,10 @@ public class GameStage extends javax.swing.JFrame {
         pids = temp.toArray(new String[temp.size()]);
         game = new Game(pids);
         
+        for (String playerId : pids) {
+        PlayerDB.addPlayer(playerId);
+        }
+        
         populateArrayList();
         game.start(game);
         

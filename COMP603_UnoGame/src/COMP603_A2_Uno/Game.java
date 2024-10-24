@@ -232,9 +232,13 @@ public class Game {
         System.out.println("Winner's PID: " + pid);
         String winnerName = pid;
         int[] playerIDs = getPlayerIDs();
+        int winnerId = PlayerDB.getPlayerID(winnerName);
+    
+        PlayerDB.addScore(winnerId, 1); 
+
         new EndScreen(winnerName, playerIDs).setVisible(true);
         gamestage.dispose();
-        System.exit(0);  // End the game if the player has no cards left.
+        System.exit(0); 
     }
 //    // Set the valid color and value for the next turn
 //    validColour = card.getColour();

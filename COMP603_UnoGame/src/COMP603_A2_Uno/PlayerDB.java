@@ -11,24 +11,27 @@ package COMP603_A2_Uno;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class PlayerDB {
 
     public static void addPlayer(String playerName) {
-        String sql = "INSERT INTO players (name) VALUES (?)";
+    String sql = "INSERT INTO players (name) VALUES (?)";
+    try (Connection conn = new DBConnection().getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-        try (Connection conn = new DBConnection().getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        pstmt.setString(1, playerName);
+        pstmt.executeUpdate();
+        System.out.println("Player added: " + playerName);
 
-            pstmt.setString(1, playerName);
-            pstmt.executeUpdate();
-            System.out.println("Player added: " + playerName);
-
-        } catch (Exception e) {
+    } catch (SQLException e) {
+        if (e.getSQLState().equals("23505")) {
+            System.out.println("Player already exists: " + playerName);
+        } else {
             e.printStackTrace();
         }
     }
-
+}
     public static void getPlayers() {
         String sql = "SELECT * FROM players";
 
@@ -80,6 +83,43 @@ public class PlayerDB {
         }
 
         return playerName;
+    }
+    public static void addScore(int playerId, int score) {
+        String sql = "INSERT INTO scores (player_id, score) VALUES (?, ?)";
+       
+        try (Connection conn = new DBConnection().getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, playerId);
+            pstmt.setInt(2, score);
+            pstmt.executeUpdate();
+            System.out.println("Score added for player ID: " + playerId);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public static int getPlayerTotalScore(int playerId) {
+        int totalScore = 0;
+        String sql = "SELECT SUM(score) AS total_score FROM scores WHERE player_id = ?";
+
+        try (Connection conn = new DBConnection().getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, playerId);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                totalScore = rs.getInt("total_score");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return totalScore;
     }
     
 }

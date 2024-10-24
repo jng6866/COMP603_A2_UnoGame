@@ -14,56 +14,37 @@ import java.sql.SQLException;
  * @author mufasa
  */
 public class DBSetup {
-
-    DBConnection dbManager;
-    Connection conn;
-    Statement statement;
-
-    public DBSetup() throws SQLException {
-        dbManager = new DBConnection();
-        conn = dbManager.getConnection();
+    public static void initializeDatabase() {
         try {
-            statement = conn.createStatement();
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-    }
+            Connection conn = DBConnection.getConnection();
+            Statement statement = conn.createStatement();
 
-    public static void main(String[] args) throws SQLException {
-        DBSetup dbSetup = new DBSetup();
+            statement.executeUpdate("CREATE TABLE players ("
+                + "id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY, "
+                + "name VARCHAR(100))");
 
-        try {
+            statement.executeUpdate("CREATE TABLE scores ("
+                + "id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY, "
+                + "player_id INT, "
+                + "score INT, "
+                + "FOREIGN KEY (player_id) REFERENCES players(id))");
 
-            dbSetup.statement.addBatch("CREATE TABLE players ("
-                    + "id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY, "
-                    + "name VARCHAR(100))");
+            statement.executeUpdate("CREATE TABLE game_rounds ("
+                + "round_number INT, "
+                + "winner_id INT, "
+                + "FOREIGN KEY (winner_id) REFERENCES players(id))");
 
-            dbSetup.statement.addBatch("CREATE TABLE scores ("
-                    + "id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY, "
-                    + "player_id INT, "
-                    + "score INT, "
-                    + "FOREIGN KEY (player_id) REFERENCES players(id))");
+            statement.executeUpdate("CREATE TABLE game_stats ("
+                + "total_games_played INT, "
+                + "total_time_played INT)");
 
-
-            dbSetup.statement.executeBatch();
-            System.out.println("Tables created successfully!");
-
-        } catch (SQLException ex) {
-            if (ex.getSQLState().equals("X0Y32")) { //catch existing table
-
-                System.out.println("Table exists");
+            System.out.println("Tables created successfully.");
+        } catch (SQLException e) {
+            if (e.getSQLState().equals("X0Y32")) {
+                System.out.println("Tables already exist.");
             } else {
-                System.out.println(ex.getMessage()); //print error message
+                e.printStackTrace();
             }
-        } finally {
-
-            dbSetup.closeConnection(); //close connection
-        }
-    }
-
-    public void closeConnection() {
-        if (dbManager != null) {
-            dbManager.closeConnections();
         }
     }
 }

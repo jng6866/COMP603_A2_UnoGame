@@ -16,7 +16,7 @@ import java.sql.Statement;
 public class DBConnection {
 
 
-    private static final String URL = "jdbc:derby://localhost:1527/GameDB";
+    private static final String URL = "jdbc:derby:GameDB;create=true";
 
     private static final String USER_NAME = "test";
     private static final String PASSWORD = "test"; 

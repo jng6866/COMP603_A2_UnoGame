@@ -24,6 +24,7 @@ public class EndScreen extends javax.swing.JFrame {
      */
     private String winner;
     private int[] playerIds;
+    private String playerStat;
     
     public EndScreen(String winner, int[] playerIds) {
         initComponents();
@@ -56,45 +57,42 @@ public class EndScreen extends javax.swing.JFrame {
 
     private void displayPlayerStats() {
 
-    jLabel1.setVisible(false);
-    jLabel2.setVisible(false);
-    jLabel3.setVisible(false);
-    jLabel4.setVisible(false);
+        jLabel1.setVisible(false);  // Initially hide labels
+        jLabel2.setVisible(false);
+        jLabel3.setVisible(false);
+        jLabel4.setVisible(false);
 
+        for (int i = 0; i < playerIds.length; i++) {
+            String playerName = PlayerDB.getPlayerName(playerIds[i]);  // Fetch the player's name from the DB
+            int playerScore = PlayerDB.getPlayerTotalScore(playerIds[i]);  // Fetch the player's total score from DB
 
-    for (int i = 0; i < playerIds.length; i++) {
-        String playerName = PlayerDB.getPlayerName(playerIds[i]);  
-        int playerScore = ScoreDB.getPlayerTotalScore(playerIds[i]); 
+            if (playerName == null) {
+                playerName = "Unknown Player";  // Fallback if player name is null
+            }
 
-        if (playerName == null) {
-            playerName = "Unknown Player";
-        }
-        if (playerScore == 0) {
-            playerScore = 0;
-        }
+            String playerStat = "Player " + (i + 1) + ": " + playerName + " - wins (" + playerScore + " total wins)";
 
-        String playerStat = "Player " + (i + 1) + ": " + playerName + " - wins (" + playerScore + " total wins)";
-
-        switch (i) {
-            case 0:
-                jLabel1.setText(playerStat);
-                jLabel1.setVisible(true);
-                break;
-            case 1:
-                jLabel2.setText(playerStat);
-                jLabel2.setVisible(true);
-                break;
-            case 2:
-                jLabel3.setText(playerStat);
-                jLabel3.setVisible(true);
-                break;
-            case 3:
-                jLabel4.setText(playerStat);
-                jLabel4.setVisible(true);
-                break;
+            // Display stats in the respective labels
+            switch (i) {
+                case 0:
+                    jLabel1.setText(playerStat);
+                    jLabel1.setVisible(true);
+                    break;
+                case 1:
+                    jLabel2.setText(playerStat);
+                    jLabel2.setVisible(true);
+                    break;
+                case 2:
+                    jLabel3.setText(playerStat);
+                    jLabel3.setVisible(true);
+                    break;
+                case 3:
+                    jLabel4.setText(playerStat);
+                    jLabel4.setVisible(true);
+                    break;
+            }
         }
     }
-}
     
     
     

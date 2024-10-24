@@ -1,5 +1,0 @@
-hayden 8
-john 1
-mustafa 15
-k 1
-m 5

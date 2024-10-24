@@ -191,109 +191,174 @@ public class Game {
     public void submitPlayerCard(String pid, Card card, Card.Colour declaredColour)
         throws InvalidColourSubmissionException, InvalidPlayerTurnException, InvalidValueSubmissionException {
     
-    checkPlayerTurn(pid);  // Check if it's the correct player's turn
+        checkPlayerTurn(pid);  // Check if it's the correct player's turn
 
-    ArrayList<Card> pHand = getPlayerHand(pid);
+        ArrayList<Card> pHand = getPlayerHand(pid);
 
-    // Handle wild card by immediately setting the declared colour
-    if (card.getColour() == Card.Colour.Wild) {
-        validColour = declaredColour;  // Set to the declared color
-        validValue = card.getValue();
-    }
-    // Ensure the card being played is valid
-    else if (!validCardPlay(card)) {
-        JLabel message = new JLabel("Invalid move. Expected colour: " + validColour +
-                ". Given color: " + card.getColour() + ".");
-        message.setFont(new Font("Arial", Font.BOLD, 48));
-        JOptionPane.showMessageDialog(null, message);
-
-        throw new InvalidColourSubmissionException(message, card.getColour(), validColour);
-    }
-    else{
-        validColour = card.getColour();
-        validValue = card.getValue();
-    }
-
-    // Remove the card from the player's hand
-    pHand.remove(card);
-
-    // Check if the player has won
-//    if (hasEmptyhand(this.playerIds[currentPlayer])) {
-//        JLabel message = new JLabel(this.playerIds[currentPlayer] + " has won! Thanks for playing!");
-//        message.setFont(new Font("Arial", Font.BOLD, 48));
-//        JOptionPane.showMessageDialog(null, message);
-//        System.exit(0);
-//    }
-    
-    if (hasEmptyhand(pid)) {
-//        JLabel message = new JLabel(pid + " has won the game!");
-//        message.setFont(new Font("Arial", Font.BOLD, 48));
-//        JOptionPane.showMessageDialog(null, message);
-        System.out.println("Winner's PID: " + pid);
-        String winnerName = pid;
-        int[] playerIDs = getPlayerIDs();
-        int winnerId = PlayerDB.getPlayerID(winnerName);
-    
-        PlayerDB.addScore(winnerId, 1); 
-
-        new EndScreen(winnerName, playerIDs).setVisible(true);
-        gamestage.dispose();
-        System.exit(0); 
-    }
-//    // Set the valid color and value for the next turn
-//    validColour = card.getColour();
-//    validValue = card.getValue();
-
-    stockPile.add(card);  // Add the card to the stockpile
-
-    // Handle direction for next player
-    if (!direction) {
-        currentPlayer = (currentPlayer + 1) % playerIds.length;
-    } else {
-        currentPlayer = (currentPlayer - 1) % playerIds.length;
-        if (currentPlayer == -1) {
-            currentPlayer = playerIds.length - 1;
+        // Handle wild card by immediately setting the declared colour
+        if (card.getColour() == Card.Colour.Wild) {
+            validColour = declaredColour;  // Set to the declared color
+            validValue = card.getValue();
         }
-    }
+        // Ensure the card being played is valid
+        else if (!validCardPlay(card)) {
+            JLabel message = new JLabel("Invalid move. Expected colour: " + validColour +
+                    ". Given color: " + card.getColour() + ".");
+            message.setFont(new Font("Arial", Font.BOLD, 48));
+            JOptionPane.showMessageDialog(null, message);
 
-    // Handle special cards
-    if (card.getValue() == Card.Value.DrawTwo) {
-        pid = playerIds[currentPlayer];
-        getPlayerHand(pid).add(deck.drawCard());
-        getPlayerHand(pid).add(deck.drawCard());
-        JLabel message = new JLabel(pid + ", draw 2 cards!");
-        JOptionPane.showMessageDialog(null, message);
-    }
-
-    if (card.getValue() == Card.Value.wildFour) {
-        pid = playerIds[currentPlayer];
-        for (int i = 0; i < 4; i++) {
-            getPlayerHand(pid).add(deck.drawCard());
+            throw new InvalidColourSubmissionException(message, card.getColour(), validColour);
         }
-        JLabel message = new JLabel(pid + ", draw 4 cards!");
-        JOptionPane.showMessageDialog(null, message);
-    }
+        else{
+            validColour = card.getColour();
+            validValue = card.getValue();
+        }
 
-    if (card.getValue() == Card.Value.Skip) {
-        JLabel message = new JLabel(playerIds[currentPlayer] + " was skipped!");
-        message.setFont(new Font("Arial", Font.BOLD, 48));
-        JOptionPane.showMessageDialog(null, message);
-        if (!direction) {
-            currentPlayer = (currentPlayer + 1) % playerIds.length;
-        } else {
-            currentPlayer = (currentPlayer - 1) % playerIds.length;
-            if (currentPlayer == -1) {
-                currentPlayer = playerIds.length - 1;
+        // Remove the card from the player's hand
+        pHand.remove(card);
+
+        // Check if the player has won
+    //    if (hasEmptyhand(this.playerIds[currentPlayer])) {
+    //        JLabel message = new JLabel(this.playerIds[currentPlayer] + " has won! Thanks for playing!");
+    //        message.setFont(new Font("Arial", Font.BOLD, 48));
+    //        JOptionPane.showMessageDialog(null, message);
+    //        System.exit(0);
+    //    }
+
+        if (hasEmptyhand(pid)) {
+    //        JLabel message = new JLabel(pid + " has won the game!");
+    //        message.setFont(new Font("Arial", Font.BOLD, 48));
+    //        JOptionPane.showMessageDialog(null, message);
+            System.out.println("Winner's PID: " + pid);
+            String winnerName = pid;
+            int[] playerIDs = getPlayerIDs();
+            int winnerId = PlayerDB.getPlayerID(winnerName);
+
+            PlayerDB.addScore(winnerId, 1); 
+            new EndScreen(winnerName, playerIDs).setVisible(true);
+            gamestage.dispose();
+            System.exit(0); 
+        }
+    //    // Set the valid color and value for the next turn
+    //    validColour = card.getColour();
+    //    validValue = card.getValue();
+
+            stockPile.add(card);  // Add the card to the stockpile
+
+
+        // ==================== SPECIAL CARD HANDLING ====================
+
+        if (card.getValue() == Card.Value.Reverse) {
+            System.out.println("Before Reverse: Current Player: " + playerIds[currentPlayer]);
+
+            String reversePlayer = playerIds[currentPlayer];
+            JLabel message = new JLabel(reversePlayer + " used reverse!");
+            message.setFont(new Font("Arial", Font.BOLD, 36));
+            JOptionPane.showMessageDialog(null, message);
+
+            direction ^= true;  // Reverse the direction
+
+            // Adjust currentPlayer based on the new direction
+            if (direction) {
+                // If the direction is now reversed, move counterclockwise
+                currentPlayer = (currentPlayer - 1 + playerIds.length) % playerIds.length;
+            } else {
+                // If the direction is now normal, move clockwise
+                currentPlayer = (currentPlayer + 1) % playerIds.length;
             }
+            System.out.println("After Reverse: Current Player: " + playerIds[currentPlayer]);
+            return;
         }
-    }
 
-    if (card.getValue() == Card.Value.Reverse) {
-        JLabel message = new JLabel(playerIds[currentPlayer] + " used reverse!");
-        message.setFont(new Font("Arial", Font.BOLD, 48));
-        JOptionPane.showMessageDialog(null, message);
-        direction ^= true;  // Reverse the direction
+        if (card.getValue() == Card.Value.DrawTwo) {
+            // Log the current player before handling Draw Two
+            System.out.println("Before Draw Two: Current Player: " + playerIds[currentPlayer]);
+            
+            // Move to the next player who will draw the two cards
+            if (!direction) {
+                currentPlayer = (currentPlayer + 1) % playerIds.length;  // Clockwise direction
+            } else {
+                currentPlayer = (currentPlayer - 1 + playerIds.length) % playerIds.length;  // Counterclockwise direction
+            }
+            
+            pid = playerIds[currentPlayer];
+            
+            // Log the player who will draw two cards
+            System.out.println("Player who will draw two cards: " + playerIds[currentPlayer]);
+            
+            getPlayerHand(pid).add(deck.drawCard());
+            getPlayerHand(pid).add(deck.drawCard());
+            
+            JLabel message = new JLabel(pid + ", draw 2 cards!");
+            JOptionPane.showMessageDialog(null, message);
+            
+            // Log the current player after Draw Two is handled
+            System.out.println("After Draw Two: Current Player: " + playerIds[currentPlayer]);
+            
+            return;
         }
-    
+
+        if (card.getValue() == Card.Value.wildFour) {
+            // Log the current player before handling Wild Draw Four
+            System.out.println("Before Wild Draw Four: Current Player: " + playerIds[currentPlayer]);
+
+            // Move to the next player who will draw the four cards
+            if (!direction) {
+                currentPlayer = (currentPlayer + 1) % playerIds.length;  // Clockwise direction
+                System.out.println("Moving to next player in clockwise direction: " + playerIds[currentPlayer]);
+            } else {
+                currentPlayer = (currentPlayer - 1 + playerIds.length) % playerIds.length;  // Counterclockwise direction
+                System.out.println("Moving to previous player in counterclockwise direction: " + playerIds[currentPlayer]);
+            }
+            
+            pid = playerIds[currentPlayer];
+            
+            // Log the player who will draw four cards
+            System.out.println("Player who will draw four cards: " + playerIds[currentPlayer]);
+            
+            for (int i = 0; i < 4; i++) {
+                getPlayerHand(pid).add(deck.drawCard());
+            }
+            JLabel message = new JLabel(pid + ", draw 4 cards!");
+            JOptionPane.showMessageDialog(null, message);
+            
+            // Log the current player after Wild Draw Four is handled
+            System.out.println("After Wild Draw Four: Current Player: " + playerIds[currentPlayer]);
+            
+            return;
+        }
+
+        if (card.getValue() == Card.Value.Skip) {
+            // Log the current player before skipping
+            System.out.println("Before Skip: Current Player: " + playerIds[currentPlayer]);
+            
+            JLabel message = new JLabel(playerIds[currentPlayer] + " was skipped!");
+            message.setFont(new Font("Arial", Font.BOLD, 36));
+            JOptionPane.showMessageDialog(null, message);
+            // Skip the next player by advancing twice
+            if (!direction) {
+                currentPlayer = (currentPlayer + 1) % playerIds.length;  // Clockwise direction
+                System.out.println("Skipped Player: " + playerIds[currentPlayer]);
+                currentPlayer = (currentPlayer + 1) % playerIds.length;  // Move to the next player after skip
+            } else {
+                currentPlayer = (currentPlayer - 1 + playerIds.length) % playerIds.length;  // Counterclockwise direction
+                System.out.println("Skipped Player: " + playerIds[currentPlayer]);
+                currentPlayer = (currentPlayer - 1 + playerIds.length) % playerIds.length;  // Move to the previous player after skip
+            }
+            // Log the player after skipping
+            System.out.println("After Skip: Current Player: " + playerIds[currentPlayer]);
+            return;
+        }
+        
+        // ==================== GENERAL PLAYER ADVANCEMENT ====================    
+        // Handles the general direction for next player advancing
+        if (!direction) {
+        currentPlayer = (currentPlayer + 1) % playerIds.length;  // Clockwise move
+        } else {
+            currentPlayer = (currentPlayer - 1 + playerIds.length) % playerIds.length;  // Counterclockwise move
+        }
+        
+        // debugging statement
+        System.out.println("Next Player After Regular Play: " + playerIds[currentPlayer]);
     }
 }

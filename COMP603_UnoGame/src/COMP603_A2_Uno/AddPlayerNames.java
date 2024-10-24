@@ -32,6 +32,25 @@ public class AddPlayerNames extends javax.swing.JFrame {
         String[] pids = playerIds.toArray(new String[playerIds.size()]);
         return pids;
     }
+    
+    private String formatName(String name) {
+        if (name == null || name.isEmpty()) {
+            return name;  // Return as is if the input is null or empty
+        }
+
+        // Split by spaces and capitalize each part
+        String[] parts = name.trim().toLowerCase().split("\\s+");
+        StringBuilder formattedName = new StringBuilder();
+
+        for (String part : parts) {
+            if (part.length() > 0) {
+                formattedName.append(part.substring(0, 1).toUpperCase())  // Capitalize first letter
+                             .append(part.substring(1)).append(" ");  // Add the rest of the part in lowercase
+            }
+    }
+    
+    return formattedName.toString().trim();  // Remove any trailing space
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -258,11 +277,21 @@ public class AddPlayerNames extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(pidTextBox.getText().isEmpty()){
             JLabel message = new JLabel("Please enter a player name!");
-            message.setFont(new Font("Helvetica Neue", Font.BOLD, 48));
+            message.setFont(new Font("Helvetica Neue", Font.BOLD, 36));
             JOptionPane.showMessageDialog(null,message);
         }
         else{
             String name = pidTextBox.getText().trim();
+            name = formatName(name);
+            
+            // Check if the player name (After formatting) is already exists in the player list
+            if (playerIds.contains(name)) {
+                JLabel message = new JLabel("This name has already been entered!");
+                message.setFont(new Font("Helvetica Neue", Font.BOLD, 36));
+                JOptionPane.showMessageDialog(null, message);
+                return;  // Stop further processing to prevent adding a duplicate name
+            }
+            
             playerIds.add(name);
             
             if(playerIds.size() == 1){

@@ -44,6 +44,17 @@ public class Game {
         }  
     }
     
+    
+    private int[] getPlayerIDs() {
+    int[] playerIDs = new int[playerIds.length];  // Create an array to store player IDs
+
+    for (int i = 0; i < playerIds.length; i++) {
+        playerIDs[i] = PlayerDB.getPlayerID(playerIds[i]);  // Get the ID for each player name using PlayerDB
+    }
+
+    return playerIDs;  // Return the array of player IDs
+}
+    
     public void start(Game game){
         Card card = deck.drawCard();
         validColour = card.getColour();
@@ -219,7 +230,9 @@ public class Game {
 //        message.setFont(new Font("Arial", Font.BOLD, 48));
 //        JOptionPane.showMessageDialog(null, message);
         System.out.println("Winner's PID: " + pid);
-        new EndScreen(pid).setVisible(true);
+        String winnerName = pid;
+        int[] playerIDs = getPlayerIDs();
+        new EndScreen(winnerName, playerIDs).setVisible(true);
         gamestage.dispose();
         System.exit(0);  // End the game if the player has no cards left.
     }

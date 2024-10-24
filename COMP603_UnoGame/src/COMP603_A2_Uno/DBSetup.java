@@ -19,7 +19,7 @@ public class DBSetup {
     Connection conn;
     Statement statement;
 
-    public DBSetup() {
+    public DBSetup() throws SQLException {
         dbManager = new DBConnection();
         conn = dbManager.getConnection();
         try {
@@ -29,7 +29,7 @@ public class DBSetup {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         DBSetup dbSetup = new DBSetup();
 
         try {

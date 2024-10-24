@@ -44,4 +44,42 @@ public class PlayerDB {
             e.printStackTrace();
         }
     }
+    
+    public static int getPlayerID(String playerName) {
+    int playerID = -1;
+    String sql = "SELECT id FROM players WHERE name = ?";
+    try (Connection conn = new DBConnection().getConnection();  
+        PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        pstmt.setString(1, playerName);
+        ResultSet rs = pstmt.executeQuery();
+        if (rs.next()) {
+            playerID = rs.getInt("id");
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return playerID;
+}
+    
+    public static String getPlayerName(int playerId) {
+        String playerName = "Unknown Player";
+        String sql = "SELECT name FROM players WHERE id = ?";
+
+        try (Connection conn = new DBConnection().getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, playerId);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                playerName = rs.getString("name");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return playerName;
+    }
+    
 }

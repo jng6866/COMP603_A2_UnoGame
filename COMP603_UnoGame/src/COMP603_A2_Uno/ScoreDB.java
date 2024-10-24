@@ -31,19 +31,24 @@ public class ScoreDB {
     }
 
 
-    public static void getScores() {
-        String sql = "SELECT * FROM scores";
-        
-        try (Connection conn = new DBConnection().getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) {
+    public static int getPlayerTotalScore(int playerId) {
+        int totalScore = 0;
+        String sql = "SELECT SUM(score) AS total_score FROM scores WHERE player_id = ?";
 
-            while (rs.next()) {
-                System.out.println("Score ID: " + rs.getInt("id") + ", Player ID: " + rs.getInt("player_id") + ", Score: " + rs.getInt("score"));
+        try (Connection conn = new DBConnection().getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, playerId);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                totalScore = rs.getInt("total_score");
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        return totalScore;
     }
 }

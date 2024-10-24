@@ -26,14 +26,24 @@ public class DBConnection {
         establishConnection();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         DBConnection dbConnection = new DBConnection();
         System.out.println(dbConnection.getConnection());
     }
+    
+    
 
-    public Connection getConnection() {
-        return this.conn;
+    public static Connection getConnection() throws SQLException {
+    try {
+        Class.forName("org.apache.derby.jdbc.ClientDriver");
+        System.out.println("Driver loaded successfully!");
+    } catch (ClassNotFoundException e) {
+        e.printStackTrace();
+        throw new SQLException("Driver not found");
     }
+
+    return DriverManager.getConnection(URL, USER_NAME, PASSWORD);
+}
 
 
     public void establishConnection() {

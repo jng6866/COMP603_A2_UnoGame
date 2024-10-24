@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author haydenwinterburn
+ * @author haydenwinterburn & mustafakamish
  */
 public class Game {
     
@@ -70,7 +70,7 @@ public class Game {
         
         if(card.getValue() == Card.Value.Skip){
             JLabel message = new JLabel(playerIds[currentPlayer] + " was skipped.");
-            message.setFont(new Font("Arial", Font.BOLD, 48));
+            message.setFont(new Font("Arial", Font.BOLD, 36));
             JOptionPane.showConfirmDialog(null, message);
             
             if(direction == false){
@@ -87,7 +87,7 @@ public class Game {
         
         if(card.getValue() == Card.Value.Reverse){
             JLabel message = new JLabel(playerIds[currentPlayer] + " reversed the game direcion.");
-            message.setFont(new Font("Arial", Font.BOLD, 48));
+            message.setFont(new Font("Arial", Font.BOLD, 36));
             JOptionPane.showConfirmDialog(null, message);
             
             direction ^= true;
@@ -183,11 +183,14 @@ public class Game {
             }
         }    
     }
-    
+    // Set card colour if it is valid
     public void setCardColour(Card.Colour colour){
         validColour = colour;
     }
     
+    // Will run this method when a card is played
+    // Will verify if it is valid
+    // If the card is an action card, will peform the function of the action type
     public void submitPlayerCard(String pid, Card card, Card.Colour declaredColour)
         throws InvalidColourSubmissionException, InvalidPlayerTurnException, InvalidValueSubmissionException {
     
@@ -197,33 +200,29 @@ public class Game {
 
         // Handle wild card by immediately setting the declared colour
         if (card.getColour() == Card.Colour.Wild) {
-            validColour = declaredColour;  // Set to the declared color
-            validValue = card.getValue();
+            // Set the valid color and value for the next turn
+            validColour = declaredColour;
+            validValue = card.getValue();  
         }
         // Ensure the card being played is valid
         else if (!validCardPlay(card)) {
+            
+            //Displays message if card is an invalid move
             JLabel message = new JLabel("Invalid move. Expected colour: " + validColour +
                     ". Given color: " + card.getColour() + ".");
-            message.setFont(new Font("Arial", Font.BOLD, 48));
+            message.setFont(new Font("Arial", Font.BOLD, 36));
             JOptionPane.showMessageDialog(null, message);
 
             throw new InvalidColourSubmissionException(message, card.getColour(), validColour);
         }
         else{
+            // Set the valid color and value for the next turn
             validColour = card.getColour();
             validValue = card.getValue();
         }
 
         // Remove the card from the player's hand
         pHand.remove(card);
-
-        // Check if the player has won
-    //    if (hasEmptyhand(this.playerIds[currentPlayer])) {
-    //        JLabel message = new JLabel(this.playerIds[currentPlayer] + " has won! Thanks for playing!");
-    //        message.setFont(new Font("Arial", Font.BOLD, 48));
-    //        JOptionPane.showMessageDialog(null, message);
-    //        System.exit(0);
-    //    }
 
         if (hasEmptyhand(pid)) {
     //        JLabel message = new JLabel(pid + " has won the game!");
@@ -239,9 +238,6 @@ public class Game {
             gamestage.dispose();
             System.exit(0); 
         }
-    //    // Set the valid color and value for the next turn
-    //    validColour = card.getColour();
-    //    validValue = card.getValue();
 
             stockPile.add(card);  // Add the card to the stockpile
 
@@ -249,8 +245,10 @@ public class Game {
         // ==================== SPECIAL CARD HANDLING ====================
 
         if (card.getValue() == Card.Value.Reverse) {
+            //Log current player before reverse (Debugging)
             System.out.println("Before Reverse: Current Player: " + playerIds[currentPlayer]);
-
+            
+            //Display message for the player who played reverse card
             String reversePlayer = playerIds[currentPlayer];
             JLabel message = new JLabel(reversePlayer + " used reverse!");
             message.setFont(new Font("Arial", Font.BOLD, 36));
@@ -266,40 +264,43 @@ public class Game {
                 // If the direction is now normal, move clockwise
                 currentPlayer = (currentPlayer + 1) % playerIds.length;
             }
+            //Log the current player after reverse (Debugging)
             System.out.println("After Reverse: Current Player: " + playerIds[currentPlayer]);
             return;
         }
 
         if (card.getValue() == Card.Value.DrawTwo) {
-            // Log the current player before handling Draw Two
+            // Log the current player before handling Draw Two (Debugging)
             System.out.println("Before Draw Two: Current Player: " + playerIds[currentPlayer]);
             
             // Move to the next player who will draw the two cards
             if (!direction) {
                 currentPlayer = (currentPlayer + 1) % playerIds.length;  // Clockwise direction
             } else {
-                currentPlayer = (currentPlayer - 1 + playerIds.length) % playerIds.length;  // Counterclockwise direction
+                currentPlayer = (currentPlayer - 1 + playerIds.length) % playerIds.length;  // Anti clockwise direction
             }
             
             pid = playerIds[currentPlayer];
             
-            // Log the player who will draw two cards
+            // Log the player who will draw two cards (Debugging)
             System.out.println("Player who will draw two cards: " + playerIds[currentPlayer]);
             
             getPlayerHand(pid).add(deck.drawCard());
             getPlayerHand(pid).add(deck.drawCard());
             
+            //Display message for the player who played draw two card
             JLabel message = new JLabel(pid + ", draw 2 cards!");
+            message.setFont(new Font("Arial", Font.BOLD, 36));
             JOptionPane.showMessageDialog(null, message);
             
-            // Log the current player after Draw Two is handled
+            // Log the current player after Draw Two is handled (Debugging)
             System.out.println("After Draw Two: Current Player: " + playerIds[currentPlayer]);
             
             return;
         }
 
         if (card.getValue() == Card.Value.wildFour) {
-            // Log the current player before handling Wild Draw Four
+            // Log the current player before handling Wild Draw Four (Debugging)
             System.out.println("Before Wild Draw Four: Current Player: " + playerIds[currentPlayer]);
 
             // Move to the next player who will draw the four cards
@@ -307,34 +308,36 @@ public class Game {
                 currentPlayer = (currentPlayer + 1) % playerIds.length;  // Clockwise direction
                 System.out.println("Moving to next player in clockwise direction: " + playerIds[currentPlayer]);
             } else {
-                currentPlayer = (currentPlayer - 1 + playerIds.length) % playerIds.length;  // Counterclockwise direction
+                currentPlayer = (currentPlayer - 1 + playerIds.length) % playerIds.length;  // Anti clockwise direction
                 System.out.println("Moving to previous player in counterclockwise direction: " + playerIds[currentPlayer]);
             }
             
             pid = playerIds[currentPlayer];
             
-            // Log the player who will draw four cards
+            // Log the player who will draw four cards (Debugging)
             System.out.println("Player who will draw four cards: " + playerIds[currentPlayer]);
             
             for (int i = 0; i < 4; i++) {
                 getPlayerHand(pid).add(deck.drawCard());
             }
             JLabel message = new JLabel(pid + ", draw 4 cards!");
+            message.setFont(new Font("Arial", Font.BOLD, 36));
             JOptionPane.showMessageDialog(null, message);
             
-            // Log the current player after Wild Draw Four is handled
+            // Log the current player after Wild Draw Four is handled (Debugging)
             System.out.println("After Wild Draw Four: Current Player: " + playerIds[currentPlayer]);
             
             return;
         }
 
         if (card.getValue() == Card.Value.Skip) {
-            // Log the current player before skipping
+            // Log the current player before skipping (Debugging)
             System.out.println("Before Skip: Current Player: " + playerIds[currentPlayer]);
             
             JLabel message = new JLabel(playerIds[currentPlayer] + " was skipped!");
             message.setFont(new Font("Arial", Font.BOLD, 36));
             JOptionPane.showMessageDialog(null, message);
+            
             // Skip the next player by advancing twice
             if (!direction) {
                 currentPlayer = (currentPlayer + 1) % playerIds.length;  // Clockwise direction
@@ -355,10 +358,10 @@ public class Game {
         if (!direction) {
         currentPlayer = (currentPlayer + 1) % playerIds.length;  // Clockwise move
         } else {
-            currentPlayer = (currentPlayer - 1 + playerIds.length) % playerIds.length;  // Counterclockwise move
+            currentPlayer = (currentPlayer - 1 + playerIds.length) % playerIds.length;  // Anti clockwise move
         }
         
-        // debugging statement
+        // Log the current player if non action card is played (Debugging)
         System.out.println("Next Player After Regular Play: " + playerIds[currentPlayer]);
     }
 }

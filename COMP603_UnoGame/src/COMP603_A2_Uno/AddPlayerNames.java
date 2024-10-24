@@ -65,16 +65,16 @@ public class AddPlayerNames extends javax.swing.JFrame {
         DoneButton = new javax.swing.JButton();
         pidTextBox = new javax.swing.JTextField();
         INSERT_TITLE = new javax.swing.JLabel();
-        PLAYERNAME_LABEL = new javax.swing.JLabel();
+        playerNameLabel = new javax.swing.JLabel();
         pidOneLabel = new javax.swing.JLabel();
         pidTwoLabel = new javax.swing.JLabel();
         pidThreeLabel = new javax.swing.JLabel();
         pidFourLabel = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        p1Label = new javax.swing.JLabel();
+        p2Label = new javax.swing.JLabel();
+        p3Label = new javax.swing.JLabel();
+        p4Label = new javax.swing.JLabel();
+        exitButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(600, 400));
@@ -101,7 +101,7 @@ public class AddPlayerNames extends javax.swing.JFrame {
         DoneButton.setBackground(new java.awt.Color(229, 105, 105));
         DoneButton.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         DoneButton.setForeground(new java.awt.Color(255, 255, 255));
-        DoneButton.setText("PLAY GAME");
+        DoneButton.setText("START GAME");
         DoneButton.setBorderPainted(false);
         DoneButton.setPreferredSize(new java.awt.Dimension(145, 35));
         DoneButton.addActionListener(new java.awt.event.ActionListener() {
@@ -118,15 +118,15 @@ public class AddPlayerNames extends javax.swing.JFrame {
         pidTextBox.setBounds(new java.awt.Rectangle(0, 50, 0, 0));
         pidTextBox.setPreferredSize(new java.awt.Dimension(64, 30));
 
-        INSERT_TITLE.setFont(new java.awt.Font("Helvetica Neue", 1, 41)); // NOI18N
+        INSERT_TITLE.setFont(new java.awt.Font("Helvetica Neue", 1, 36)); // NOI18N
         INSERT_TITLE.setForeground(new java.awt.Color(255, 255, 255));
         INSERT_TITLE.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         INSERT_TITLE.setText("INSERT PLAYER NAMES");
 
-        PLAYERNAME_LABEL.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
-        PLAYERNAME_LABEL.setForeground(new java.awt.Color(255, 255, 255));
-        PLAYERNAME_LABEL.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        PLAYERNAME_LABEL.setText("PLAYER NAME:");
+        playerNameLabel.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        playerNameLabel.setForeground(new java.awt.Color(255, 255, 255));
+        playerNameLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        playerNameLabel.setText("PLAYER NAME:");
 
         pidOneLabel.setBackground(new java.awt.Color(229, 105, 105));
         pidOneLabel.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
@@ -153,32 +153,32 @@ public class AddPlayerNames extends javax.swing.JFrame {
         pidFourLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         pidFourLabel.setOpaque(true);
 
-        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("P1");
+        p1Label.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        p1Label.setForeground(new java.awt.Color(255, 255, 255));
+        p1Label.setText("P1");
 
-        jLabel2.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel2.setText("P3");
+        p2Label.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        p2Label.setForeground(new java.awt.Color(255, 255, 255));
+        p2Label.setText("P2");
 
-        jLabel3.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel3.setText("P4");
+        p3Label.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        p3Label.setForeground(new java.awt.Color(255, 255, 255));
+        p3Label.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        p3Label.setText("P3");
 
-        jLabel4.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("P2");
+        p4Label.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        p4Label.setForeground(new java.awt.Color(255, 255, 255));
+        p4Label.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        p4Label.setText("P4");
 
-        jButton1.setBackground(new java.awt.Color(229, 105, 105));
-        jButton1.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("EXIT");
-        jButton1.setBorderPainted(false);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        exitButton.setBackground(new java.awt.Color(229, 105, 105));
+        exitButton.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        exitButton.setForeground(new java.awt.Color(255, 255, 255));
+        exitButton.setText("EXIT");
+        exitButton.setBorderPainted(false);
+        exitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                exitButtonActionPerformed(evt);
             }
         });
 
@@ -190,11 +190,11 @@ public class AddPlayerNames extends javax.swing.JFrame {
                 .addGap(69, 69, 69)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(p1Label)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(pidOneLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
+                        .addComponent(p2Label)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(pidTwoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -202,17 +202,17 @@ public class AddPlayerNames extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(pidFourLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3))
+                        .addComponent(p4Label))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(pidThreeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2)))
+                        .addComponent(p3Label)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(35, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(exitButton)
                         .addGap(15, 15, 15))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(DoneButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -221,7 +221,7 @@ public class AddPlayerNames extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(INSERT_TITLE, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(PLAYERNAME_LABEL, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(playerNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(pidTextBox, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -233,29 +233,29 @@ public class AddPlayerNames extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(104, Short.MAX_VALUE)
                 .addComponent(INSERT_TITLE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(SaveButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(PLAYERNAME_LABEL, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(playerNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(pidTextBox, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(p1Label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(pidOneLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(p3Label, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(pidThreeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pidTwoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(pidFourLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(p2Label, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(p4Label, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(DoneButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(4, 4, 4)
-                .addComponent(jButton1)
+                .addComponent(exitButton)
                 .addGap(15, 15, 15))
         );
 
@@ -263,7 +263,7 @@ public class AddPlayerNames extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -341,11 +341,11 @@ public class AddPlayerNames extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_DoneButtonActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
         // TODO add your handling code here:
         System.exit(0);
         this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_exitButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -385,18 +385,18 @@ public class AddPlayerNames extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton DoneButton;
     private javax.swing.JLabel INSERT_TITLE;
-    private javax.swing.JLabel PLAYERNAME_LABEL;
     private javax.swing.JButton SaveButton;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JButton exitButton;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel p1Label;
+    private javax.swing.JLabel p2Label;
+    private javax.swing.JLabel p3Label;
+    private javax.swing.JLabel p4Label;
     private javax.swing.JLabel pidFourLabel;
     private javax.swing.JLabel pidOneLabel;
     private javax.swing.JTextField pidTextBox;
     private javax.swing.JLabel pidThreeLabel;
     private javax.swing.JLabel pidTwoLabel;
+    private javax.swing.JLabel playerNameLabel;
     // End of variables declaration//GEN-END:variables
 }

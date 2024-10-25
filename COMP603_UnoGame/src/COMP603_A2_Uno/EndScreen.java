@@ -6,7 +6,7 @@ package COMP603_A2_Uno;
 
 /**
  *
- * @author haydenwinterburn & mustafakamish
+ * @author haydenwinterburn
  */
 public class EndScreen extends javax.swing.JFrame {
     

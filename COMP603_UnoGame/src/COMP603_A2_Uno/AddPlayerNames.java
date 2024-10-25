@@ -376,11 +376,11 @@ public class AddPlayerNames extends javax.swing.JFrame {
             new GameStage(playerIds).setVisible(true); // Opens GameStage with player IDs
         }
     }//GEN-LAST:event_DoneButtonActionPerformed
-    // Exits the application when 'Exit' button is clicked
+
     private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
         // TODO add your handling code here:
-        System.exit(0); // Exit the program
-        this.dispose(); // Dispose of the window
+        System.exit(0);
+        this.dispose();
     }//GEN-LAST:event_exitButtonActionPerformed
 
     /**

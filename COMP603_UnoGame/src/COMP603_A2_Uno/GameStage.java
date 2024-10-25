@@ -55,7 +55,7 @@ public class GameStage extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         
         populateArrayList();
-        game.start(game);
+        game.startGame();
         
         setPidName();
         setButtonIcons();

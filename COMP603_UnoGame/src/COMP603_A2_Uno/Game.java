@@ -15,11 +15,10 @@ import javax.swing.JOptionPane;
  *
  * @author haydenwinterburn & mustafakamish
  */
-public class Game {
+public class Game implements GameInterface{
     
     private int currentPlayer;
     private String[] playerIds;
-    
     private Deck deck;
     private ArrayList<ArrayList<Card>> playerHand;
     private ArrayList<Card> stockPile;
@@ -50,7 +49,6 @@ public class Game {
         cardsPlayed = 0;
     }
     
-    
     private int[] getPlayerIDs() {
     int[] playerIDs = new int[playerIds.length]; 
 
@@ -60,76 +58,104 @@ public class Game {
         return playerIDs;  
     }
    
-    
-    public void start(Game game){
+    @Override
+    public void startGame() {
         Card card = deck.drawCard();
         validColour = card.getColour();
         validValue = card.getValue();
-        
-        if(card.getValue() == Card.Value.Wild){
-            start(game);
+
+        // Restart if the initial card is a Wild card
+        if (card.getValue() == Card.Value.Wild) {
+            startGame();
+            return;
         }
-        
-        if(card.getValue() == Card.Value.wildFour || card.getValue() == Card.Value.DrawTwo){
-            start(game);
+
+        // Restart if the initial card is a DrawTwo or WildFour
+        if (card.getValue() == Card.Value.wildFour || card.getValue() == Card.Value.DrawTwo) {
+            startGame();
+            return;
         }
-        
-        if(card.getValue() == Card.Value.Skip){
+
+        // Handle Skip card effect
+        if (card.getValue() == Card.Value.Skip) {
             JLabel message = new JLabel(playerIds[currentPlayer] + " was skipped.");
             message.setFont(new Font("Arial", Font.BOLD, 36));
             JOptionPane.showConfirmDialog(null, message);
-            
-            if(direction == false){
+
+            // Move to the next player based on the game's direction
+            if (!direction) {
                 currentPlayer = (currentPlayer + 1) % playerIds.length;
-            }
-            else if(direction == true){
-                currentPlayer = (currentPlayer - 1) % playerIds.length;
-            
-                if(currentPlayer == -1){
-                    currentPlayer = playerIds.length - 1;
-                }   
+            } else {
+                currentPlayer = (currentPlayer - 1 + playerIds.length) % playerIds.length;
             }
         }
-        
-        if(card.getValue() == Card.Value.Reverse){
-            JLabel message = new JLabel(playerIds[currentPlayer] + " reversed the game direcion.");
+
+        // Handle Reverse card effect
+        if (card.getValue() == Card.Value.Reverse) {
+            JLabel message = new JLabel(playerIds[currentPlayer] + " reversed the game direction.");
             message.setFont(new Font("Arial", Font.BOLD, 36));
             JOptionPane.showConfirmDialog(null, message);
-            
-            direction ^= true;
-            currentPlayer = playerIds.length -1;
+
+            direction = !direction; // Toggle direction
+            currentPlayer = playerIds.length - 1; // Reset to the last player in the list
         }
-        
+
+        // Add the drawn card to the stock pile as the initial card
         stockPile.add(card);
     }
+        
+    @Override
+    public String getCurrentPlayer(){
+        return this.playerIds[this.currentPlayer];
+    }
     
+    @Override
+    public ArrayList<Card> getPlayerHand(String pid){
+        int index = Arrays.asList(playerIds).indexOf(pid);
+        
+        return playerHand.get(index);
+    }
+
+    @Override
+    public int getPlayerHandSize(String pid){
+        return getPlayerHand(pid).size();
+    }
     
-    
+    @Override
     public Card getTopCard(){
         return new Card(validColour, validValue);
     }
     
-    public ImageIcon getTopCardImage(){
-        return new ImageIcon(validColour + "_" + validValue + ".png");
+    @Override
+    public int getGameDuration() {
+        long currentTime = System.currentTimeMillis();
+        return (int) ((currentTime - gameStartTime) / 1000); 
+    }
+    @Override
+    public void checkPlayerTurn(String pid) throws InvalidPlayerTurnException{
+        if(this.playerIds[this.currentPlayer] != pid){
+            throw new InvalidPlayerTurnException("It is not " + pid + "'s turn", pid);
+        }
     }
     
-    public boolean isGameOver(){
-        for(String player : this.playerIds){
-            if(hasEmptyhand(player)){
+    @Override
+    public boolean isGameOver() {
+        for (String player : playerIds) {
+            if (hasEmptyHand(player)) {
                 return true;
             }
         }
         return false;
     }
     
-    private boolean hasEmptyhand(String pid) {
+    private boolean hasEmptyHand(String pid) {
         return getPlayerHand(pid).isEmpty();
     }
-    
-    public String getCurrentPlayer(){
-        return this.playerIds[this.currentPlayer];
+
+    public ImageIcon getTopCardImage(){
+        return new ImageIcon(validColour + "_" + validValue + ".png");
     }
-    
+
     public String getPreviousPlayer(int i){
         int index = this.currentPlayer - i;
         
@@ -143,17 +169,7 @@ public class Game {
     public String[] getPlayers(){
         return playerIds;
     }
-    
-    public ArrayList<Card> getPlayerHand(String pid){
-        int index = Arrays.asList(playerIds).indexOf(pid);
-        
-        return playerHand.get(index);
-    }
-    
-    public int getPlayerHandSize(String pid){
-        return getPlayerHand(pid).size();
-    }
-    
+
     public Card getPlayerCard(String pid, int choice){
         ArrayList<Card> hand = getPlayerHand(pid);
         return hand.get(choice);
@@ -166,17 +182,7 @@ public class Game {
     public int getCardsPlayed() {
         return cardsPlayed;
     }
-    public int getGameDuration() {
-        long currentTime = System.currentTimeMillis();
-        return (int) ((currentTime - gameStartTime) / 1000); 
-    }
-    
-    public void checkPlayerTurn(String pid) throws InvalidPlayerTurnException{
-        if(this.playerIds[this.currentPlayer] != pid){
-            throw new InvalidPlayerTurnException("It is not " + pid + "'s turn", pid);
-        }
-    }
-    
+
     public void submitDraw (String pid) throws InvalidPlayerTurnException{
         checkPlayerTurn(pid);
         
@@ -239,7 +245,7 @@ public class Game {
         pHand.remove(card);
         
         // ========================= DETERMINE WINNER ==========================
-        if (hasEmptyhand(pid)) {
+        if (isGameOver()) {
 
             System.out.println("Winner's PID: " + pid); // Debugging statement
             
@@ -273,7 +279,7 @@ public class Game {
             message.setFont(new Font("Arial", Font.BOLD, 36));
             JOptionPane.showMessageDialog(null, message);
 
-            direction ^= true;  // Reverse the direction
+            direction = !direction;  // Reverse the direction
 
             // Adjust currentPlayer based on the new direction
             if (direction) {

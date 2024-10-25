@@ -8,28 +8,30 @@ package COMP603_A2_Uno;
  *
  * @author haydenwinterburn & mustafakamish
  */
+
+// Menu class for the main menu interface of the Uno game application
+// Allows users to start the game or exit the application
 public class Menu extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Menu
-     */
+    // Constructor for the Menu form
     public Menu() {
-        initComponents();
-        DBSetup.initializeDatabase();
-        
-        // Center the window on the screen
+        initComponents(); // Initialise GUI components
+        DBSetup.initializeDatabase(); // Initialise the database if not already done
+
+        // Centre the window on the screen for a better user experience
         setLocationRelativeTo(null);
-        
-        // Let's the Esc key click the 'Exit' button (Shortcut key)
+
+        // Bind 'Esc' key to trigger the 'Exit' button as a shortcut
         jPanel1.getInputMap(javax.swing.JComponent.WHEN_IN_FOCUSED_WINDOW).put(
             javax.swing.KeyStroke.getKeyStroke("ESCAPE"), "exitAction");
         jPanel1.getActionMap().put("exitAction", new javax.swing.AbstractAction() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent e) {
-                exitButton.doClick();  // Simulate a click on the exit button
+                exitButton.doClick();  // Simulate a click on the 'Exit' button
             }
         });
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -142,17 +144,17 @@ public class Menu extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    // Handles the action for the 'Exit' button
     private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
         // TODO add your handling code here:
         
-        System.exit(0);
+        System.exit(0); // Closes the application
     }//GEN-LAST:event_exitButtonActionPerformed
-
+    // Handles the action for the 'Play' button   
     private void playButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playButtonActionPerformed
         // TODO add your handling code here:
-        new AddPlayerNames().setVisible(true);
-        this.dispose();
+        new AddPlayerNames().setVisible(true); // Opens the AddPlayerNames form
+        this.dispose(); // Closes the Menu form
     }//GEN-LAST:event_playButtonActionPerformed
 
     /**

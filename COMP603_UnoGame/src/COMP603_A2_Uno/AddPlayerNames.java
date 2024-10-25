@@ -15,58 +15,62 @@ import javax.swing.JOptionPane;
  *
  * @author haydenwinterburn & Mustafakamish
  */
+
+// Allows players to add their names to start a game of Uno, with validation for minimum and maximum players.
+// Includes shortcut keys for ease of use.
 public class AddPlayerNames extends javax.swing.JFrame {
-    
+    // List to store player IDs (names) entered by the user
     public ArrayList<String> playerIds;
     
-    
     /**
-     * Creates new form AddPlayerNames
+     * Creates a new form AddPlayerNames
+     * Sets up shortcut keys, centres the window, and initialises the player list.
      */
     public AddPlayerNames() {
         initComponents();
-        playerIds = new ArrayList<>();
+        playerIds = new ArrayList<>();  // Initialise player ID list
         
-        // Center the window on the screen
+        // Centre the window on the screen for better user experience
         setLocationRelativeTo(null);
         
-        // Let's the Enter key click the 'Add Player' button (Shortcut key)
+        // Binds 'Enter' key to simulate a click on the 'Add Player' button
         pidTextBox.addActionListener(evt -> SaveButton.doClick());
         
-        // Let's the Esc key click the 'Exit' button (Shortcut key)
+        // Binds 'Esc' key to simulate a click on the 'Exit' button for easy exit
         jPanel1.getInputMap(javax.swing.JComponent.WHEN_IN_FOCUSED_WINDOW).put(
             javax.swing.KeyStroke.getKeyStroke("ESCAPE"), "exitAction");
         jPanel1.getActionMap().put("exitAction", new javax.swing.AbstractAction() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent e) {
-                exitButton.doClick();  // Simulate a click on the exit button
+                exitButton.doClick();  // Simulates exit button click
             }
         });
     }
 
+    // Converts player IDs to a String array, to pass as needed in other components
     public String[] getPids(){
-        String[] pids = playerIds.toArray(new String[playerIds.size()]);
-        return pids;
+        return playerIds.toArray(new String[playerIds.size()]);
     }
     
+    // Formats a name by capitalising the first letter of each part
     private String formatName(String name) {
         if (name == null || name.isEmpty()) {
-            return name;  // Return as is if the input is null or empty
+            return name;  // Returns as is if the input is null or empty
         }
 
-        // Split by spaces and capitalize each part
-        String[] parts = name.trim().toLowerCase().split("\\s+");
+        String[] parts = name.trim().toLowerCase().split("\\s+");  // Splits name into parts
         StringBuilder formattedName = new StringBuilder();
 
+        // Capitalises the first letter of each part and appends it
         for (String part : parts) {
             if (part.length() > 0) {
-                formattedName.append(part.substring(0, 1).toUpperCase())  // Capitalize first letter
-                             .append(part.substring(1)).append(" ");  // Add the rest of the part in lowercase
+                formattedName.append(part.substring(0, 1).toUpperCase())  
+                             .append(part.substring(1)).append(" ");
             }
+        }
+        return formattedName.toString().trim();  // Removes any trailing space
     }
-    
-    return formattedName.toString().trim();  // Remove any trailing space
-    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -291,16 +295,15 @@ public class AddPlayerNames extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    // Handles 'Add Player' button click event
     private void SaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveButtonActionPerformed
         // TODO add your handling code here:
         if(pidTextBox.getText().isEmpty()){
             JLabel message = new JLabel("Please enter a player name!");
             message.setFont(new Font("Helvetica Neue", Font.BOLD, 36));
             message.setForeground(new Color(220,75,75));
-            JOptionPane.showMessageDialog(null,message);
-            // Request focus back to the text field after the dialog closes
-            pidTextBox.requestFocusInWindow();
+            JOptionPane.showMessageDialog(null,message); 
+            pidTextBox.requestFocusInWindow(); // Refocus on text field after closing dialog
         }
         else{
             String name = pidTextBox.getText().trim();
@@ -312,13 +315,13 @@ public class AddPlayerNames extends javax.swing.JFrame {
                 message.setFont(new Font("Helvetica Neue", Font.BOLD, 36));
                 message.setForeground(new Color(220,75,75));
                 JOptionPane.showMessageDialog(null, message);
-                // Request focus back to the text field after the dialog closes
-                pidTextBox.requestFocusInWindow();
+                pidTextBox.requestFocusInWindow(); // Refocus on text field after closing dialog
                 return;  // Stop further processing to prevent adding a duplicate name
             }
             
-            playerIds.add(name);
+            playerIds.add(name); // Adds the player name if it's unique
             
+            // Updates labels to display each player's name based on the list size
             if(playerIds.size() == 1){
                 pidOneLabel.setText(playerIds.get(0));
             }
@@ -337,39 +340,40 @@ public class AddPlayerNames extends javax.swing.JFrame {
                 pidThreeLabel.setText(playerIds.get(2));
                 pidFourLabel.setText(playerIds.get(3));
             }
+            // Shows confirmation for successful addition
             if(playerIds.size() > 0 && playerIds.size() < 5){
                 JLabel message = new JLabel("Save successful!");
                 message.setFont(new Font("Helvetica Neue", Font.BOLD, 36));
                 message.setForeground(new Color(220,75,75));
                 JOptionPane.showMessageDialog(null,message);
                 pidTextBox.setText("");
-                // Request focus back to the text field after the dialog closes
-                pidTextBox.requestFocusInWindow();
+                pidTextBox.requestFocusInWindow(); // Refocus on text field after closing dialog
                 
             }
+            // Prevents adding more than 4 players
             if(playerIds.size() == 5){
                 playerIds.remove(name);
                 JLabel message = new JLabel("Can only have 2 - 4 players for Uno Game.\nExit and restart the game to change player names.");
                 message.setFont(new Font("Helvetica Neue", Font.BOLD, 36));
                 message.setForeground(new Color(220,75,75));
                 JOptionPane.showMessageDialog(null,message);
-                // Request focus back to the text field after the dialog closes
-                pidTextBox.requestFocusInWindow();
+                pidTextBox.requestFocusInWindow(); // Refocus on text field after closing dialog
             }
         }
     }//GEN-LAST:event_SaveButtonActionPerformed
 
+    // Handles the 'Start Game' button click event
     private void DoneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DoneButtonActionPerformed
         // TODO add your handling code here:
-        if(playerIds.size() == 1 || playerIds.size() == 0){
+        if(playerIds.size() == 1 || playerIds.size() == 0){ // Checks if minimum player requirement is met
             JLabel message = new JLabel("Mimimum of 2 players is required to play.");
             message.setFont(new Font("Helvetica Neue", Font.BOLD, 36));
             message.setForeground(new Color(220,75,75));
             JOptionPane.showMessageDialog(null,message);
         }
         else{
-            this.dispose();
-            new GameStage(playerIds).setVisible(true);
+            this.dispose(); // Closes current frame
+            new GameStage(playerIds).setVisible(true); // Opens GameStage with player IDs
         }
     }//GEN-LAST:event_DoneButtonActionPerformed
 

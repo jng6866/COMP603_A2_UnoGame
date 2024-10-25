@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author haydenwinterburn
+ * @author haydenwinterburn & mustafakamish
  */
 public interface GameInterface {
     

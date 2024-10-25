@@ -247,8 +247,8 @@ public class Game {
             int[] playerIDs = getPlayerIDs();
             int winnerId = PlayerDB.getPlayerID(winnerName);
             int totalTimePlayed = getGameDuration();  
-            int totalCardsPlayed = getCardsPlayed();
-            GameStatsDB.addGameStats(totalCardsPlayed, totalTimePlayed);
+//            int totalCardsPlayed = getCardsPlayed();
+            GameStatsDB.addGameStats(cardsPlayed, totalTimePlayed);
             PlayerDB.addScore(winnerId, 1); 
             new EndScreen(winnerName, playerIDs).setVisible(true);
             gamestage.dispose();

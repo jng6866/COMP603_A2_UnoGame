@@ -31,8 +31,11 @@ public class PickColourFrame extends javax.swing.JFrame {
         this.repaint();
         System.out.println("Buttons initialized.");
         
+        this.pack();
+        this.setResizable(false); 
         // Center the window on the screen
         setLocationRelativeTo(null);
+        this.setVisible(true);
     }
     
     public PickColourFrame(PopUp pop){
@@ -41,6 +44,12 @@ public class PickColourFrame extends javax.swing.JFrame {
         this.revalidate();
         this.repaint();
         System.out.println("Buttons initialized with PopUp.");
+        
+        this.pack();
+        this.setResizable(false); 
+        // Center the window on the screen
+        setLocationRelativeTo(null);
+        this.setVisible(true);
     }
     
     public Card.Colour chooseColour(Card card){
@@ -52,6 +61,7 @@ public class PickColourFrame extends javax.swing.JFrame {
             
             this.revalidate();
             this.repaint();
+            this.setLocationRelativeTo(null);
         }
         return card.getColour();
     }
@@ -343,7 +353,11 @@ public class PickColourFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PickColourFrame().setVisible(true);
+                PickColourFrame frame = new PickColourFrame();
+                frame.pack();
+                frame.setLocationRelativeTo(null); 
+                frame.setVisible(true);
+                
             }
         });
     }

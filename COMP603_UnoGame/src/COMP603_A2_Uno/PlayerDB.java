@@ -16,7 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PlayerDB {
-
+    
+    
+    //adds players to db
     public static void addPlayer(String playerName) {
     String sql = "INSERT INTO players (name) VALUES (?)";
     try (Connection conn = new DBConnection().getConnection();
@@ -27,33 +29,19 @@ public class PlayerDB {
         System.out.println("Player added: " + playerName);
 
     } catch (SQLException e) {
+        //check for duplicate error
         if (e.getSQLState().equals("23505")) {
             System.out.println("Player already exists: " + playerName);
         } else {
-            e.printStackTrace();
+            e.printStackTrace(); // print trace
         }
     }
 }
-//    public static void getPlayers() {
-//        String sql = "SELECT * FROM players";
-//
-//        try (Connection conn = new DBConnection().getConnection();
-//             PreparedStatement pstmt = conn.prepareStatement(sql);
-//             ResultSet rs = pstmt.executeQuery()) {
-//
-//            while (rs.next()) {
-//                System.out.println("Player ID: " + rs.getInt("id") + ", Name: " + rs.getString("name"));
-//            }
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
     
     public static int getPlayerID(String playerName) {
-    int playerID = -1;
-    String sql = "SELECT id FROM players WHERE name = ?";
-    try (Connection conn = new DBConnection().getConnection();  
+        int playerID = -1;
+        String sql = "SELECT id FROM players WHERE name = ?";
+        try (Connection conn = new DBConnection().getConnection();  
         PreparedStatement pstmt = conn.prepareStatement(sql)) {
         pstmt.setString(1, playerName);
         ResultSet rs = pstmt.executeQuery();
@@ -63,8 +51,8 @@ public class PlayerDB {
     } catch (Exception e) {
         e.printStackTrace();
     }
-    return playerID;
-}
+        return playerID;
+    }
     
     public static String getPlayerName(int playerId) {
         String playerName = "Unknown Player";
@@ -80,12 +68,14 @@ public class PlayerDB {
                 playerName = rs.getString("name");
             }
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
 
         return playerName;
     }
+    
+    
     public static void addScore(int playerId, int score) {
         String sql = "INSERT INTO scores (player_id, score) VALUES (?, ?)";
        
@@ -102,7 +92,7 @@ public class PlayerDB {
         }
     }
 
-
+    // retrieve total score by using sum of games won
     public static int getPlayerTotalScore(int playerId) {
         int totalScore = 0;
         String sql = "SELECT SUM(score) AS total_score FROM scores WHERE player_id = ?";
@@ -124,6 +114,7 @@ public class PlayerDB {
         return totalScore;
     }
     
+    // retrieves top 5 players in decending order
     public static List<String> getTop5Players() {
         String sql = 
             "SELECT p.name AS player_name, SUM(s.score) AS total_wins " +
@@ -142,7 +133,7 @@ public class PlayerDB {
            while (rs.next()) {
                String playerName = rs.getString("player_name");
                 int wins = rs.getInt("total_wins");
-                topPlayers.add(playerName + " - " + wins + " wins"); // Format: PlayerName - Wins
+                topPlayers.add(playerName + " - " + wins + " wins"); // print player name then win 
             }
         
         } catch (Exception e) {

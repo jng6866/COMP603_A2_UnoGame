@@ -22,7 +22,8 @@ public class MoreStats extends javax.swing.JFrame {
         // Center the window on the screen
         setLocationRelativeTo(null);
     }
-
+    
+    // display stats
     private void displayGameStatistics() {    
         int totalTimePlayed = GameStatsDB.getTotalGameTime(); 
         jLabel1.setText("Total play time: " + formatTime(totalTimePlayed)); 
@@ -33,6 +34,7 @@ public class MoreStats extends javax.swing.JFrame {
         int lastGameTime = GameStatsDB.getLastGameTime(); 
         jLabel3.setText("Current game time: " + formatTime(lastGameTime));
         
+        //print top 5 players and invisible labels if needed
         List<String> topPlayers = PlayerDB.getTop5Players(); 
         JLabel[] playerLabels = {jLabel5, jLabel6, jLabel7, jLabel8, jLabel9};
     
@@ -40,10 +42,11 @@ public class MoreStats extends javax.swing.JFrame {
             playerLabels[i].setText(topPlayers.get(i));
         }
         for (int i = topPlayers.size(); i < playerLabels.length; i++) {
-            playerLabels[i].setText("");
+            playerLabels[i].setText(""); // blanks
         }        
     }
     
+    //formats time from seconds to h,m,s
     private String formatTime(int totalSeconds) {
         int hours = totalSeconds / 3600;
         int minutes = (totalSeconds % 3600) / 60;
@@ -197,7 +200,6 @@ public class MoreStats extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        
         // Exit moreStat screen and disposes the window
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed

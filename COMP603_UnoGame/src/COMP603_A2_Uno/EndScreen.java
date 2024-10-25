@@ -10,15 +10,6 @@ package COMP603_A2_Uno;
  */
 public class EndScreen extends javax.swing.JFrame {
     
-    
-    //Players in current game
-    //Players current wins
-    //Players current rank
-        //Bronze: 0 - 5
-        //Silver: 6 - 15
-        //Gold: 16 - 30
-        //Master: 31 + 
-    
     /**
      * Creates new form EndScreen
      */

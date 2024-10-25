@@ -30,6 +30,9 @@ public class PickColourFrame extends javax.swing.JFrame {
         this.revalidate();
         this.repaint();
         System.out.println("Buttons initialized.");
+        
+        // Center the window on the screen
+        setLocationRelativeTo(null);
     }
     
     public PickColourFrame(PopUp pop){

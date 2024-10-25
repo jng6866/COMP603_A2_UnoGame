@@ -17,6 +17,9 @@ public class Menu extends javax.swing.JFrame {
         initComponents();
         DBSetup.initializeDatabase();
         
+        // Center the window on the screen
+        setLocationRelativeTo(null);
+        
         // Let's the Esc key click the 'Exit' button (Shortcut key)
         jPanel1.getInputMap(javax.swing.JComponent.WHEN_IN_FOCUSED_WINDOW).put(
             javax.swing.KeyStroke.getKeyStroke("ESCAPE"), "exitAction");

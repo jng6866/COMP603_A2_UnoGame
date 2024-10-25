@@ -88,6 +88,7 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="CANCEL"/>
+            <Property name="toolTipText" type="java.lang.String" value="shortcut=&apos;Esc&apos;"/>
             <Property name="borderPainted" type="boolean" value="false"/>
           </Properties>
           <Events>
@@ -106,6 +107,7 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="USE CARD"/>
+            <Property name="toolTipText" type="java.lang.String" value="shortcut=&apos;ENTER&apos;"/>
             <Property name="borderPainted" type="boolean" value="false"/>
           </Properties>
           <Events>

@@ -16,6 +16,8 @@ public class MoreStats extends javax.swing.JFrame {
     public MoreStats() {
         initComponents();
         displayGameStatistics();
+        // Center the window on the screen
+        setLocationRelativeTo(null);
     }
 
     private void displayGameStatistics() {

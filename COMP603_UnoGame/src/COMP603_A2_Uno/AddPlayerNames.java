@@ -27,6 +27,9 @@ public class AddPlayerNames extends javax.swing.JFrame {
         initComponents();
         playerIds = new ArrayList<>();
         
+        // Center the window on the screen
+        setLocationRelativeTo(null);
+        
         // Let's the Enter key click the 'Add Player' button (Shortcut key)
         pidTextBox.addActionListener(evt -> SaveButton.doClick());
         
@@ -201,7 +204,7 @@ public class AddPlayerNames extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(35, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(exitButton)

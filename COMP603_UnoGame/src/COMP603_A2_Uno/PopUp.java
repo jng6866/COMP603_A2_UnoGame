@@ -34,21 +34,9 @@ public class PopUp extends javax.swing.JFrame {
         playerHand = game.getPlayerHand(game.getCurrentPlayer());
         choice = index;
         this.cardButtons = cardButtons;
-//        cardLabel.setIcon(new javax.swing.ImageIcon("/Users/haydenwinterburn/images/small/" + cardImage + ".png"));
         this.gamestage = gamestage;
         this.topCardButton = topCardButton;
-        
-//        // Set the image for the cardLabel using the absolute file path
-//        String filePath = "/Users/haydenwinterburn/images/small/" + cardImage + ".png";  // Replace with your correct path
-//        java.io.File file = new java.io.File(filePath);
-//
-//        if (file.exists()) {
-//            cardLabel.setIcon(new javax.swing.ImageIcon(filePath));
-//        } else {
-//            System.out.println("Card image not found at path: " + filePath);
-//            cardLabel.setText("Image not found");
-//            }
-        
+
         String basePath = System.getProperty("user.dir") + "/resources/images/small/";
         String imagePath = basePath + cardImage + ".png";
         File imgFile = new File(imagePath);
@@ -59,6 +47,28 @@ public class PopUp extends javax.swing.JFrame {
             System.out.println("Card image not found at path: " + imagePath);
             cardLabel.setText("Image not found");
         }
+        
+        // Let's the Enter key be used to click the "Use Card" button (shortcut key)
+        jPanel1.getInputMap(javax.swing.JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+            javax.swing.KeyStroke.getKeyStroke("ENTER"), "useCardAction");
+        jPanel1.getActionMap().put("useCardAction", new javax.swing.AbstractAction() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                useCardButton.doClick();  // Simulate a click on the "Use Card" button
+            }
+        });
+        
+        // Let's the Escape key be used to click the "Cancel" button
+        jPanel1.getInputMap(javax.swing.JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+            javax.swing.KeyStroke.getKeyStroke("ESCAPE"), "cancelAction");
+        jPanel1.getActionMap().put("cancelAction", new javax.swing.AbstractAction() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                cancelButton.doClick();  // Simulate a click on the "Cancel" button
+            }
+        });
+        // Center the window on the screen
+        setLocationRelativeTo(null);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -82,6 +92,7 @@ public class PopUp extends javax.swing.JFrame {
         cancelButton.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         cancelButton.setForeground(new java.awt.Color(255, 255, 255));
         cancelButton.setText("CANCEL");
+        cancelButton.setToolTipText("shortcut='Esc'");
         cancelButton.setBorderPainted(false);
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -93,6 +104,7 @@ public class PopUp extends javax.swing.JFrame {
         useCardButton.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         useCardButton.setForeground(new java.awt.Color(255, 255, 255));
         useCardButton.setText("USE CARD");
+        useCardButton.setToolTipText("shortcut='ENTER'");
         useCardButton.setBorderPainted(false);
         useCardButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -166,19 +178,6 @@ public class PopUp extends javax.swing.JFrame {
             if(declaredColour != Card.Colour.Wild){
                 gamestage.setPidName(game.getCurrentPlayer());
                 gamestage.setButtonIcons();
-                //topCardButton.setIcon(new javax.swing.ImageIcon("/Users/haydenwinterburn/images/small/" + cardImage + ".png"));
-
-//                String basePath = System.getProperty("user.dir") + "/resources/images/small/";
-//                String imagePath = basePath + cardImage + ".png";
-//                File imgFile = new File(imagePath);
-//
-//                if (imgFile.exists()) {
-//                    topCardButton.setIcon(new ImageIcon(imgFile.getAbsolutePath()));
-//                    gamestage.updateTopCardColor();
-//                } else {
-//                    System.out.println("Top card image not found at path: " + imagePath);
-//                    topCardButton.setText("Image not found");
-//                }
                 gamestage.updateTopCardButton();
                 gamestage.updateTopCardColor();
                 this.dispose();
@@ -227,6 +226,7 @@ public class PopUp extends javax.swing.JFrame {
         });
     }
     public PopUp(){}
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;
     private javax.swing.JLabel cardLabel;

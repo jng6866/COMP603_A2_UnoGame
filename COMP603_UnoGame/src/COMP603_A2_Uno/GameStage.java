@@ -41,6 +41,18 @@ public class GameStage extends javax.swing.JFrame {
         for (String playerId : pids) {
         PlayerDB.addPlayer(playerId);
         }
+        // Let's the Escape key be used to click the "Exit" button
+        jPanel1.getInputMap(javax.swing.JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+            javax.swing.KeyStroke.getKeyStroke("ESCAPE"), "exitAction");
+        jPanel1.getActionMap().put("exitAction", new javax.swing.AbstractAction() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                exitButton.doClick();  // Simulate a click on the "Exit" button
+            }
+        });
+        
+        // Center the window on the screen
+        setLocationRelativeTo(null);
         
         populateArrayList();
         game.start(game);
@@ -49,8 +61,7 @@ public class GameStage extends javax.swing.JFrame {
         setButtonIcons();
         updateTopCardColor();
         updateTopCardButton();
-        //topCardButton.setIcon(new javax.swing.ImageIcon("/Users/haydenwinterburn/images/small/" + game.getTopCardImage()));
-        // Check if the image file exists and set it as the icon of downButton
+
         String DownButtonrelativePath = System.getProperty("user.dir") + "/resources/images/small/Deck.png";
         File downButtonImgFile = new File(DownButtonrelativePath);
         if (downButtonImgFile.exists()) {
@@ -169,7 +180,7 @@ public class GameStage extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        DrawCardButton = new javax.swing.JButton();
+        drawCardButton = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -203,14 +214,14 @@ public class GameStage extends javax.swing.JFrame {
         jPanel1.setMinimumSize(new java.awt.Dimension(1280, 720));
         jPanel1.setPreferredSize(new java.awt.Dimension(1280, 720));
 
-        DrawCardButton.setBackground(new java.awt.Color(229, 105, 105));
-        DrawCardButton.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
-        DrawCardButton.setForeground(new java.awt.Color(255, 255, 255));
-        DrawCardButton.setText("+1 card");
-        DrawCardButton.setBorderPainted(false);
-        DrawCardButton.addActionListener(new java.awt.event.ActionListener() {
+        drawCardButton.setBackground(new java.awt.Color(229, 105, 105));
+        drawCardButton.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
+        drawCardButton.setForeground(new java.awt.Color(255, 255, 255));
+        drawCardButton.setText("+1 card");
+        drawCardButton.setBorderPainted(false);
+        drawCardButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DrawCardButtonActionPerformed(evt);
+                drawCardButtonActionPerformed(evt);
             }
         });
 
@@ -362,6 +373,7 @@ public class GameStage extends javax.swing.JFrame {
         exitButton.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         exitButton.setForeground(new java.awt.Color(255, 255, 255));
         exitButton.setText("EXIT GAME");
+        exitButton.setToolTipText("shortcut='Esc'");
         exitButton.setBorderPainted(false);
         exitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -412,7 +424,7 @@ public class GameStage extends javax.swing.JFrame {
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                         .addComponent(pidNameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addGap(18, 18, 18)
-                                        .addComponent(DrawCardButton, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(drawCardButton, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGap(41, 41, 41)
@@ -446,7 +458,7 @@ public class GameStage extends javax.swing.JFrame {
                         .addComponent(topCardColourLabel)
                         .addGap(62, 62, 62)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(DrawCardButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(drawCardButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(pidNameLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -653,7 +665,7 @@ public class GameStage extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton13ActionPerformed
 
-    private void DrawCardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DrawCardButtonActionPerformed
+    private void drawCardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drawCardButtonActionPerformed
         // TODO add your handling code here:
         JLabel message = new JLabel(game.getCurrentPlayer() + " drew a card.");
         message.setFont(new Font("Helvetica Neue", Font.BOLD, 48));
@@ -669,7 +681,7 @@ public class GameStage extends javax.swing.JFrame {
         this.setPidName(game.getCurrentPlayer());
         this.setButtonIcons();
         updateTopCardColor();
-    }//GEN-LAST:event_DrawCardButtonActionPerformed
+    }//GEN-LAST:event_drawCardButtonActionPerformed
 
     private void topCardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_topCardButtonActionPerformed
         // TODO add your handling code here:
@@ -726,8 +738,8 @@ public class GameStage extends javax.swing.JFrame {
     public GameStage(){}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton DrawCardButton;
     private javax.swing.JButton downButton;
+    private javax.swing.JButton drawCardButton;
     private javax.swing.JButton exitButton;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;

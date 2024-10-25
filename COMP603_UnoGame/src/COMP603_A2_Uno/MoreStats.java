@@ -18,19 +18,16 @@ public class MoreStats extends javax.swing.JFrame {
         displayGameStatistics();
     }
 
-    private void displayGameStatistics() {
-    
-        int totalTimePlayed = GameStatsDB.getTotalGameTime();
-        jLabel1.setText("Total play time: " + formatTime(totalTimePlayed));
+    private void displayGameStatistics() {    
+        int totalTimePlayed = GameStatsDB.getTotalGameTime(); 
+        jLabel1.setText("Total play time: " + formatTime(totalTimePlayed)); 
 
-    
-        int totalRounds = GameStatsDB.getTotalRoundsPlayed();
-        jLabel2.setText("Current game rounds: " + totalRounds);
+        int totalRounds = GameStatsDB.getTotalRoundsPlayed();  
+        jLabel2.setText("Total cards played in current game: " + totalRounds);
 
-    
-        int lastGameTime = GameStatsDB.getLastGameTime();
+        int lastGameTime = GameStatsDB.getLastGameTime(); 
         jLabel3.setText("Current game time: " + formatTime(lastGameTime));
-    }
+}
     
     private String formatTime(int totalSeconds) {
         int hours = totalSeconds / 3600;

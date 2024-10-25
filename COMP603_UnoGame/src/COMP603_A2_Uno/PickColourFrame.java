@@ -6,7 +6,6 @@ package COMP603_A2_Uno;
 
 import java.awt.Font;
 import java.io.File;
-import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;

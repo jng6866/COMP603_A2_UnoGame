@@ -28,6 +28,9 @@ public class Game {
     private GameStage gamestage;
     boolean direction;
     
+    private long gameStartTime;
+    private int cardsPlayed = 0;
+    
     public Game(String[] pids){
         deck = new Deck();
         deck.shuffle();
@@ -41,19 +44,22 @@ public class Game {
         for(int i = 0; i < pids.length; i++){
             ArrayList<Card> hand = new ArrayList<Card>(Arrays.asList(deck.drawCard(7)));
             playerHand.add(hand);
-        }  
+        }
+        
+        gameStartTime = System.currentTimeMillis();
+        cardsPlayed = 0;
     }
     
     
     private int[] getPlayerIDs() {
-    int[] playerIDs = new int[playerIds.length];  // Create an array to store player IDs
+    int[] playerIDs = new int[playerIds.length]; 
 
     for (int i = 0; i < playerIds.length; i++) {
-        playerIDs[i] = PlayerDB.getPlayerID(playerIds[i]);  // Get the ID for each player name using PlayerDB
+        playerIDs[i] = PlayerDB.getPlayerID(playerIds[i]);  
+        }
+        return playerIDs;  
     }
-
-    return playerIDs;  // Return the array of player IDs
-}
+   
     
     public void start(Game game){
         Card card = deck.drawCard();
@@ -157,6 +163,14 @@ public class Game {
         return card.getColour() == validColour || card.getValue() == validValue;
     }
     
+    public int getCardsPlayed() {
+        return cardsPlayed;
+    }
+    public int getGameDuration() {
+        long currentTime = System.currentTimeMillis();
+        return (int) ((currentTime - gameStartTime) / 1000); 
+    }
+    
     public void checkPlayerTurn(String pid) throws InvalidPlayerTurnException{
         if(this.playerIds[this.currentPlayer] != pid){
             throw new InvalidPlayerTurnException("It is not " + pid + "'s turn", pid);
@@ -193,7 +207,7 @@ public class Game {
     // If the card is an action card, will peform the function of the action type
     public void submitPlayerCard(String pid, Card card, Card.Colour declaredColour)
         throws InvalidColourSubmissionException, InvalidPlayerTurnException, InvalidValueSubmissionException {
-    
+        cardsPlayed++;
         checkPlayerTurn(pid);  // Check if it's the correct player's turn
 
         ArrayList<Card> pHand = getPlayerHand(pid);
@@ -232,7 +246,9 @@ public class Game {
             String winnerName = pid;
             int[] playerIDs = getPlayerIDs();
             int winnerId = PlayerDB.getPlayerID(winnerName);
-
+            int totalTimePlayed = getGameDuration();  
+            int totalCardsPlayed = getCardsPlayed();
+            GameStatsDB.addGameStats(totalCardsPlayed, totalTimePlayed);
             PlayerDB.addScore(winnerId, 1); 
             new EndScreen(winnerName, playerIDs).setVisible(true);
             gamestage.dispose();

@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author haydenwinterburn
+ * @author haydenwinterburn & mustafakamish
  */
 public class PickColourFrame extends javax.swing.JFrame {
 

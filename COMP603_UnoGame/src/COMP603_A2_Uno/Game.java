@@ -12,22 +12,27 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 /**
- * Main Game class implementing the GameInterface
+ * @author: haydenwinterburn & mustafakamish
  */
 public class Game implements GameInterface {
+    
+    // Main class representing the core game logic and mechanics for Uno.
+    // Handles player turns, card actions, and overall game progression.
+ 
+    private int currentPlayer; // Index of the current player taking their turn
+    private String[] playerIds; // Array holding the unique identifiers of players in the game
+    private Deck deck; // The primary deck of cards used for the game
+    private ArrayList<ArrayList<Card>> playerHand; // List of hands, each representing the cards a player holds
+    private ArrayList<Card> stockPile; // Pile to hold all cards that have been played
+    private Card.Colour validColour; // The current colour in play, which players must match
+    private Card.Value validValue; // The current value in play, which players must match    
+    private GameStage gamestage; // The main stage or window for the game
+    private PopUp popUp; // Pop-up notifications or additional dialogue windows
+    private boolean direction; // Boolean flag to track play direction (false for clockwise, true for anti-clockwise)
+    private long gameStartTime; // Timestamp marking the start of the game
+    private int cardsPlayed = 0; // Tracks the total number of cards played in the session
 
-    private int currentPlayer;
-    private String[] playerIds;
-    private Deck deck;
-    private ArrayList<ArrayList<Card>> playerHand;
-    private ArrayList<Card> stockPile;
-    private Card.Colour validColour;
-    private Card.Value validValue;
-    private GameStage gamestage;
-    boolean direction;
-    private long gameStartTime;
-    private int cardsPlayed = 0;
-
+    // Constructor - Initialises deck, hands, and game properties
     public Game(String[] pids) {
         deck = new Deck();
         deck.shuffle();
@@ -37,66 +42,77 @@ public class Game implements GameInterface {
         direction = false;
         playerHand = new ArrayList<>();
         this.gamestage = gamestage;
+        this.popUp = popUp;
 
+        // Populate each player's hand with 7 cards from the deck
         for (String pid : pids) {
             ArrayList<Card> hand = new ArrayList<>(Arrays.asList(deck.drawCard(7)));
             playerHand.add(hand);
         }
 
-        gameStartTime = System.currentTimeMillis();
-        cardsPlayed = 0;
+        gameStartTime = System.currentTimeMillis(); // Record game start time
+        cardsPlayed = 0; // Reset cards played count
     }
 
+    // Starts the game, drawing an initial card and managing game setup rules
     @Override
     public void startGame() {
         Card card = deck.drawCard();
         validColour = card.getColour();
         validValue = card.getValue();
 
+        // Restart if the drawn card is a special card (Wild, DrawTwo, wildFour)
         if (card.getValue() == Card.Value.Wild || card.getValue() == Card.Value.wildFour || card.getValue() == Card.Value.DrawTwo) {
             startGame();
             return;
         }
 
+        // Manage initial Skip and Reverse card effects
         if (card.getValue() == Card.Value.Skip) {
             showMessage(playerIds[currentPlayer] + " was skipped.");
-            advancePlayer();
+            advancePlayer(); // Move to the next player
         } else if (card.getValue() == Card.Value.Reverse) {
             showMessage(playerIds[currentPlayer] + " reversed the game direction.");
-            direction = !direction;
-            currentPlayer = playerIds.length - 1;
+            direction = !direction; // Toggle play direction
+            currentPlayer = playerIds.length - 1; // Set to the last player
         }
 
-        stockPile.add(card);
+        stockPile.add(card); // Add initial card to stockpile
     }
 
+    // Retrieves the current player's ID
     @Override
     public String getCurrentPlayer() {
         return this.playerIds[this.currentPlayer];
     }
 
+    // Retrieves a specific player's hand based on their ID
     @Override
     public ArrayList<Card> getPlayerHand(String pid) {
-        int index = Arrays.asList(playerIds).indexOf(pid);
+        int index = Arrays.asList(playerIds).indexOf(pid); // Find player index
         return playerHand.get(index);
     }
 
+    // Returns the number of cards in a specific player's hand
     @Override
     public int getPlayerHandSize(String pid) {
         return getPlayerHand(pid).size();
     }
 
+    // Returns the top card on the pile in play
     @Override
     public Card getTopCard() {
-        return new Card(validColour, validValue);
+        return new Card(validColour, validValue); // Create a new card representing the top card
     }
 
+    // Calculates and returns the game duration in seconds
     @Override
     public int getGameDuration() {
         long currentTime = System.currentTimeMillis();
-        return (int) ((currentTime - gameStartTime) / 1000);
+        return (int) ((currentTime - gameStartTime) / 1000); // Convert milliseconds to seconds
     }
 
+    // Ensures the specified player is playing their turn, throws an error otherwise
     @Override
     public void checkPlayerTurn(String pid) throws InvalidPlayerTurnException {
         if (!this.playerIds[this.currentPlayer].equals(pid)) {
@@ -104,45 +120,54 @@ public class Game implements GameInterface {
         }
     }
     
+    // Determines if the game is over by checking for an empty hand
     @Override
     public boolean isGameOver() {
         return Arrays.stream(playerIds).anyMatch(this::hasEmptyHand);
     }
 
+    // Checks if a specific player's hand is empty
     private boolean hasEmptyHand(String pid) {
         return getPlayerHand(pid).isEmpty();
     }
 
+    // Retrieves the icon/image of the top card
     public ImageIcon getTopCardImage() {
         return new ImageIcon(validColour + "_" + validValue + ".png");
     }
+    
+    // Updates the colour in play, used when a Wild card is played
     public void setCardColour(Card.Colour colour) {
         validColour = colour;
     }
-    public void submitDraw(String pid) throws InvalidPlayerTurnException {
-        checkPlayerTurn(pid);
 
+    // Handles draw action for a player and advances the turn
+    public void submitDraw(String pid) throws InvalidPlayerTurnException {
+        checkPlayerTurn(pid); // Confirm it's the player's turn
+
+        // Shuffle stockpile into deck if deck is empty
         if (deck.isEmpty()) {
             deck.replaceDeckWith(stockPile);
             deck.shuffle();
         }
 
         getPlayerHand(pid).add(deck.drawCard());
-        advancePlayer();
+        advancePlayer(); // Move to the next player's turn
     }
 
+    // Processes a submitted card, managing effects and turn progression
     public void submitPlayerCard(String pid, Card card, Card.Colour declaredColour)
             throws InvalidColourSubmissionException, InvalidPlayerTurnException, InvalidValueSubmissionException {
 
-        cardsPlayed++;
-        checkPlayerTurn(pid);
+        cardsPlayed++; // Increment the count of played cards
+        checkPlayerTurn(pid); // Ensure it's the player's turn
 
         ArrayList<Card> pHand = getPlayerHand(pid);
         if (card.getColour() == Card.Colour.Wild) {
             validColour = declaredColour;
             validValue = card.getValue();
         } else if (!validCardPlay(card)) {
-            showMessage("Invalid move. Expected colour: " + validColour + ". Given color: " + card.getColour() + ".");
+            showMessage("Invalid move. Expected colour: " + validColour + ". Given colour: " + card.getColour() + ".");
             throw new InvalidColourSubmissionException("Invalid colour", card.getColour(), validColour);
         } else {
             validColour = card.getColour();
@@ -151,23 +176,26 @@ public class Game implements GameInterface {
 
         pHand.remove(card);
 
+        // End game if any player is out of cards
         if (isGameOver()) {
             endGame(pid);
         }
 
         stockPile.add(card);
-        handleSpecialCards(card);
+        handleSpecialCards(card); // Handle effects of special cards (Skip, Reverse, etc.)
     }
 
+    // Checks if a submitted card is valid based on current play rules
     private boolean validCardPlay(Card card) {
         return card.getColour() == validColour || card.getValue() == validValue;
     }
 
+    // Applies effects for special cards (Skip, DrawTwo, Reverse, Wild)
     private void handleSpecialCards(Card card) {
         switch (card.getValue()) {
             case Reverse:
                 showMessage(playerIds[currentPlayer] + " used reverse!");
-                direction = !direction;
+                direction = !direction; // Toggle play direction
                 advancePlayer();
                 break;
             case DrawTwo:
@@ -188,24 +216,19 @@ public class Game implements GameInterface {
                 advancePlayer();
                 break;
             case Skip:
-                // Determine the player to be skipped
                 int skippedPlayerIndex = direction
                         ? (currentPlayer - 1 + playerIds.length) % playerIds.length  // Anti-clockwise
                         : (currentPlayer + 1) % playerIds.length;  // Clockwise
-
-                // Display message for the player who will be skipped
                 showMessage(playerIds[skippedPlayerIndex] + " was skipped!");
-
-                // Advance to the player after the skipped one
-                advancePlayer();
-                advancePlayer();
+                advancePlayer(); // Skip the player and advance
+                advancePlayer(); // Move to the next turn after skipped
                 break;
             default:
                 advancePlayer();
                 break;
         }
     }
-
+    // Ends the game, displays winner information, and disposes of game windows
     private void endGame(String pid) {
         System.out.println("Winner's PID: " + pid);
         String winnerName = pid;
@@ -217,17 +240,27 @@ public class Game implements GameInterface {
                             .toArray();
         GameStatsDB.addGameStats(cardsPlayed, totalTimePlayed);
         PlayerDB.addScore(winnerId, 1);
+        
+        // Show the end screen with winner and player details
         new EndScreen(winnerName, playerIDs).setVisible(true);
-        gamestage.dispose();
-        System.exit(0);
+
+        // Dispose of popUp and gamestage if they exist
+        if (popUp != null) {
+            popUp.dispose();
+        }
+        if (gamestage != null) {
+            gamestage.dispose();
+        }
     }
 
+    // Advances to the next player based on the current direction
     private void advancePlayer() {
         currentPlayer = direction
-                ? (currentPlayer - 1 + playerIds.length) % playerIds.length
-                : (currentPlayer + 1) % playerIds.length;
+                ? (currentPlayer - 1 + playerIds.length) % playerIds.length  // Anti-clockwise move
+                : (currentPlayer + 1) % playerIds.length;                    // Clockwise move
     }
 
+    // Utility method to display a popup message in a standard format
     private void showMessage(String messageText) {
         JLabel message = new JLabel(messageText);
         message.setFont(new Font("Arial", Font.BOLD, 36));

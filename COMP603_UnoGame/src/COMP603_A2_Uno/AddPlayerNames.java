@@ -4,6 +4,7 @@
  */
 package COMP603_A2_Uno;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
 import javax.swing.JLabel;
@@ -12,7 +13,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author haydenwinterburn
+ * @author haydenwinterburn & Mustafakamish
  */
 public class AddPlayerNames extends javax.swing.JFrame {
     
@@ -26,6 +27,18 @@ public class AddPlayerNames extends javax.swing.JFrame {
         initComponents();
         playerIds = new ArrayList<>();
         
+        // Let's the Enter key click the 'Add Player' button (Shortcut key)
+        pidTextBox.addActionListener(evt -> SaveButton.doClick());
+        
+        // Let's the Esc key click the 'Exit' button (Shortcut key)
+        jPanel1.getInputMap(javax.swing.JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+            javax.swing.KeyStroke.getKeyStroke("ESCAPE"), "exitAction");
+        jPanel1.getActionMap().put("exitAction", new javax.swing.AbstractAction() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                exitButton.doClick();  // Simulate a click on the exit button
+            }
+        });
     }
 
     public String[] getPids(){
@@ -90,7 +103,7 @@ public class AddPlayerNames extends javax.swing.JFrame {
         SaveButton.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         SaveButton.setForeground(new java.awt.Color(255, 255, 255));
         SaveButton.setText("ADD PLAYER");
-        SaveButton.setToolTipText("");
+        SaveButton.setToolTipText("shortcut='ENTER'");
         SaveButton.setBorderPainted(false);
         SaveButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -175,6 +188,7 @@ public class AddPlayerNames extends javax.swing.JFrame {
         exitButton.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         exitButton.setForeground(new java.awt.Color(255, 255, 255));
         exitButton.setText("EXIT");
+        exitButton.setToolTipText("shortcut='Esc'");
         exitButton.setBorderPainted(false);
         exitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -186,37 +200,12 @@ public class AddPlayerNames extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(69, 69, 69)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(p1Label)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pidOneLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(p2Label)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pidTwoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(pidFourLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(p4Label))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(pidThreeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(p3Label)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(35, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(exitButton)
                         .addGap(15, 15, 15))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(DoneButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(225, 225, 225))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(INSERT_TITLE, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -227,6 +216,33 @@ public class AddPlayerNames extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(SaveButton)))
                         .addGap(35, 35, 35))))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(69, 69, 69)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(p1Label)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(pidOneLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(p2Label)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(pidTwoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(pidFourLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(p4Label))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(pidThreeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(p3Label))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(220, 220, 220)
+                        .addComponent(DoneButton, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -278,7 +294,10 @@ public class AddPlayerNames extends javax.swing.JFrame {
         if(pidTextBox.getText().isEmpty()){
             JLabel message = new JLabel("Please enter a player name!");
             message.setFont(new Font("Helvetica Neue", Font.BOLD, 36));
+            message.setForeground(new Color(220,75,75));
             JOptionPane.showMessageDialog(null,message);
+            // Request focus back to the text field after the dialog closes
+            pidTextBox.requestFocusInWindow();
         }
         else{
             String name = pidTextBox.getText().trim();
@@ -286,9 +305,12 @@ public class AddPlayerNames extends javax.swing.JFrame {
             
             // Check if the player name (After formatting) is already exists in the player list
             if (playerIds.contains(name)) {
-                JLabel message = new JLabel("This name has already been entered!");
+                JLabel message = new JLabel("This name has already been entered!\nTry another name.");
                 message.setFont(new Font("Helvetica Neue", Font.BOLD, 36));
+                message.setForeground(new Color(220,75,75));
                 JOptionPane.showMessageDialog(null, message);
+                // Request focus back to the text field after the dialog closes
+                pidTextBox.requestFocusInWindow();
                 return;  // Stop further processing to prevent adding a duplicate name
             }
             
@@ -314,16 +336,22 @@ public class AddPlayerNames extends javax.swing.JFrame {
             }
             if(playerIds.size() > 0 && playerIds.size() < 5){
                 JLabel message = new JLabel("Save successful!");
-                message.setFont(new Font("Helvetica Neue", Font.BOLD, 48));
+                message.setFont(new Font("Helvetica Neue", Font.BOLD, 36));
+                message.setForeground(new Color(220,75,75));
                 JOptionPane.showMessageDialog(null,message);
                 pidTextBox.setText("");
+                // Request focus back to the text field after the dialog closes
+                pidTextBox.requestFocusInWindow();
                 
             }
             if(playerIds.size() == 5){
                 playerIds.remove(name);
-                JLabel message = new JLabel("Can only have 2 - 4 players for Uno Game.");
-                message.setFont(new Font("Helvetica Neue", Font.BOLD, 48));
+                JLabel message = new JLabel("Can only have 2 - 4 players for Uno Game.\nExit and restart the game to change player names.");
+                message.setFont(new Font("Helvetica Neue", Font.BOLD, 36));
+                message.setForeground(new Color(220,75,75));
                 JOptionPane.showMessageDialog(null,message);
+                // Request focus back to the text field after the dialog closes
+                pidTextBox.requestFocusInWindow();
             }
         }
     }//GEN-LAST:event_SaveButtonActionPerformed
@@ -332,7 +360,8 @@ public class AddPlayerNames extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(playerIds.size() == 1 || playerIds.size() == 0){
             JLabel message = new JLabel("Mimimum of 2 players is required to play.");
-            message.setFont(new Font("Helvetica Neue", Font.BOLD, 48));
+            message.setFont(new Font("Helvetica Neue", Font.BOLD, 36));
+            message.setForeground(new Color(220,75,75));
             JOptionPane.showMessageDialog(null,message);
         }
         else{

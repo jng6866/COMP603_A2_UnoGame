@@ -54,7 +54,7 @@ public class PopUp extends javax.swing.JFrame {
         jPanel1.getActionMap().put("useCardAction", new javax.swing.AbstractAction() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent e) {
-                useCardButton.doClick();  // Simulate a click on the "Use Card" button
+                playCardButton.doClick();  // Simulate a click on the "Use Card" button
             }
         });
         
@@ -81,12 +81,17 @@ public class PopUp extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         cancelButton = new javax.swing.JButton();
-        useCardButton = new javax.swing.JButton();
+        playCardButton = new javax.swing.JButton();
         cardLabel = new javax.swing.JLabel();
+        playCardLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(380, 300));
+        setMinimumSize(new java.awt.Dimension(380, 300));
 
         jPanel1.setBackground(new java.awt.Color(220, 75, 75));
+        jPanel1.setPreferredSize(new java.awt.Dimension(380, 300));
+        jPanel1.setRequestFocusEnabled(false);
 
         cancelButton.setBackground(new java.awt.Color(229, 105, 105));
         cancelButton.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
@@ -100,44 +105,52 @@ public class PopUp extends javax.swing.JFrame {
             }
         });
 
-        useCardButton.setBackground(new java.awt.Color(229, 105, 105));
-        useCardButton.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
-        useCardButton.setForeground(new java.awt.Color(255, 255, 255));
-        useCardButton.setText("USE CARD");
-        useCardButton.setToolTipText("shortcut='ENTER'");
-        useCardButton.setBorderPainted(false);
-        useCardButton.addActionListener(new java.awt.event.ActionListener() {
+        playCardButton.setBackground(new java.awt.Color(229, 105, 105));
+        playCardButton.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        playCardButton.setForeground(new java.awt.Color(255, 255, 255));
+        playCardButton.setText("PLAY CARD");
+        playCardButton.setToolTipText("shortcut='ENTER'");
+        playCardButton.setBorderPainted(false);
+        playCardButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                useCardButtonActionPerformed(evt);
+                playCardButtonActionPerformed(evt);
             }
         });
 
         cardLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
+        playCardLabel.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        playCardLabel.setForeground(new java.awt.Color(255, 255, 255));
+        playCardLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        playCardLabel.setText("DO YOU WANT TO PLAY THIS CARD?");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(playCardLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(28, 28, 28)
-                        .addComponent(useCardButton, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(playCardButton, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(138, 138, 138)
-                        .addComponent(cardLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(139, 139, 139)
+                        .addComponent(cardLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(28, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(58, Short.MAX_VALUE)
-                .addComponent(cardLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
+                .addGap(30, 30, 30)
+                .addComponent(playCardLabel)
+                .addGap(24, 24, 24)
+                .addComponent(cardLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(useCardButton)
+                    .addComponent(playCardButton)
                     .addComponent(cancelButton))
                 .addGap(30, 30, 30))
         );
@@ -156,7 +169,7 @@ public class PopUp extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void useCardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_useCardButtonActionPerformed
+    private void playCardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playCardButtonActionPerformed
         // TODO add your handling code here:
         PickColourFrame pickColour = new PickColourFrame(this);
         declaredColour = pickColour.chooseColour(playerHand.get(choice));
@@ -184,7 +197,7 @@ public class PopUp extends javax.swing.JFrame {
             }
 
         }
-    }//GEN-LAST:event_useCardButtonActionPerformed
+    }//GEN-LAST:event_playCardButtonActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         // TODO add your handling code here:
@@ -231,6 +244,7 @@ public class PopUp extends javax.swing.JFrame {
     private javax.swing.JButton cancelButton;
     private javax.swing.JLabel cardLabel;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JButton useCardButton;
+    private javax.swing.JButton playCardButton;
+    private javax.swing.JLabel playCardLabel;
     // End of variables declaration//GEN-END:variables
 }

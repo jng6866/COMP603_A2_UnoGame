@@ -52,23 +52,23 @@ public class GameStatsDB {
         return totalTime;
     }
 
-    public static int getTotalGamesPlayed() {
-        String sql = "SELECT COUNT(*) AS total_games FROM GAME_STATS";
-        int totalGames = 0;
-
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) {
-
-            if (rs.next()) {
-                totalGames = rs.getInt("total_games");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return totalGames;
-    }
+//    public static int getTotalGamesPlayed() {
+//        String sql = "SELECT COUNT(*) AS total_games FROM GAME_STATS";
+//        int totalGames = 0;
+//
+//        try (Connection conn = DBConnection.getConnection();
+//             PreparedStatement pstmt = conn.prepareStatement(sql);
+//             ResultSet rs = pstmt.executeQuery()) {
+//
+//            if (rs.next()) {
+//                totalGames = rs.getInt("total_games");
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return totalGames;
+//    }
 
     public static int getLastGameCardsPlayed() {
         String sql = "SELECT cards_played FROM GAME_STATS ORDER BY id DESC FETCH FIRST 1 ROWS ONLY";

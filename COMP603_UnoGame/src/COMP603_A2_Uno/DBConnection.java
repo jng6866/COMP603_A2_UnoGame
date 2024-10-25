@@ -1,20 +1,19 @@
 package COMP603_A2_Uno;
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
+/**
+ *
+ * @author mufasa
+ */
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-
-
 public class DBConnection {
-
 
     private static final String URL = "jdbc:derby:GameDB;create=true";
 
@@ -30,8 +29,6 @@ public class DBConnection {
         DBConnection dbConnection = new DBConnection();
         System.out.println(dbConnection.getConnection());
     }
-    
-    
 
     public static Connection getConnection() throws SQLException {
     try {

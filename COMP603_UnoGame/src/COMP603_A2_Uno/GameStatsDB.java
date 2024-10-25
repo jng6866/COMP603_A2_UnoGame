@@ -12,100 +12,97 @@ package COMP603_A2_Uno;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class GameStatsDB {
 
-    public static void addGameStats(int totalGames, int totalTime) {
-        String sql = "INSERT INTO game_stats (total_games_played, total_time_played) VALUES (?, ?)";
+    public static void addGameStats(int cardsPlayed, int lastGameTime) {
+        String sql = "INSERT INTO GAME_STATS (cards_played, last_game_time) VALUES (?, ?)";
 
-        try (Connection conn = new DBConnection().getConnection();
-            PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setInt(1, totalGames);
-            pstmt.setInt(2, totalTime);
+            pstmt.setInt(1, cardsPlayed);
+            pstmt.setInt(2, lastGameTime);
             pstmt.executeUpdate();
-            System.out.println("Game stats added.");
+            System.out.println("Game stats added: Cards Played = " + cardsPlayed + ", Last Game Time = " + lastGameTime);
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public static void getGameStats() {
-        String sql = "SELECT * FROM game_stats";
-
-            try (Connection conn = new DBConnection().getConnection();
-            PreparedStatement pstmt = conn.prepareStatement(sql);
-            ResultSet rs = pstmt.executeQuery()) {
-
-
-            while (rs.next()) {
-                System.out.println("Games Played: " + rs.getInt("total_games_played") + ", Total Time: " + rs.getInt("total_time_played"));
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    
     public static int getTotalGameTime() {
-        String sql = "SELECT SUM(total_time_played) AS total_time FROM game_stats";
+        String sql = "SELECT SUM(last_game_time) AS total_time FROM GAME_STATS";
         int totalTime = 0;
 
-        try (Connection conn = new DBConnection().getConnection();
+        try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
 
             if (rs.next()) {
                 totalTime = rs.getInt("total_time");
             }
-
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
         return totalTime;
     }
 
+//    public static int getTotalGamesPlayed() {
+//        String sql = "SELECT COUNT(*) AS total_games FROM GAME_STATS";
+//        int totalGames = 0;
+//
+//        try (Connection conn = DBConnection.getConnection();
+//             PreparedStatement pstmt = conn.prepareStatement(sql);
+//             ResultSet rs = pstmt.executeQuery()) {
+//
+//            if (rs.next()) {
+//                totalGames = rs.getInt("total_games");
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return totalGames;
+//    }
+
     public static int getLastGameCardsPlayed() {
-        String sql = "SELECT CARDS_PLAYED FROM GAME_STATS ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY";
+        String sql = "SELECT cards_played FROM GAME_STATS ORDER BY id DESC FETCH FIRST 1 ROWS ONLY";
         int lastCardsPlayed = 0;
 
-        try (Connection conn = new DBConnection().getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) {
-
-           if (rs.next()) {
-               lastCardsPlayed = rs.getInt("CARDS_PLAYED");
-           }
-
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
-
-    return lastCardsPlayed;
-}
-    
-    public static int getLastGameTime() {
-        String sql = "SELECT TOTAL_TIME_PLAYED FROM GAME_STATS ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY";
-        int lastGameTime = 0;
-
-        try (Connection conn = new DBConnection().getConnection();
+        try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
 
             if (rs.next()) {
-                lastGameTime = rs.getInt("TOTAL_TIME_PLAYED");
+                lastCardsPlayed = rs.getInt("cards_played");
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-    return lastGameTime;
-    }    
-    
-    
-    
-    
+
+        return lastCardsPlayed;
+    }
+
+    public static int getLastGameTime() {
+        String sql = "SELECT last_game_time FROM GAME_STATS ORDER BY id DESC FETCH FIRST 1 ROWS ONLY";
+        int lastGameTime = 0;
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            if (rs.next()) {
+                lastGameTime = rs.getInt("last_game_time");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lastGameTime;
+    }
 }

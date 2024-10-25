@@ -223,27 +223,27 @@ public class Game {
 
         // Remove the card from the player's hand
         pHand.remove(card);
-
+        
+        // ========================= DETERMINE WINNER =========================+
         if (hasEmptyhand(pid)) {
-    //        JLabel message = new JLabel(pid + " has won the game!");
-    //        message.setFont(new Font("Arial", Font.BOLD, 48));
-    //        JOptionPane.showMessageDialog(null, message);
-            System.out.println("Winner's PID: " + pid);
-            String winnerName = pid;
-            int[] playerIDs = getPlayerIDs();
-            int winnerId = PlayerDB.getPlayerID(winnerName);
+            System.out.println("Winner's PID: " + pid); // Debugging statement
+            String winnerName = pid; //retreives name from pid
+            int[] playerIDs = getPlayerIDs(); //retrieves playerid
+            int winnerId = PlayerDB.getPlayerID(winnerName); 
 
             PlayerDB.addScore(winnerId, 1); 
             new EndScreen(winnerName, playerIDs).setVisible(true);
-            gamestage.dispose();
-            System.exit(0); 
+            gamestage.dispose(); //Closes the gamestage window
+            System.exit(0); //Finishing the game
         }
 
             stockPile.add(card);  // Add the card to the stockpile
 
 
-        // ==================== SPECIAL CARD HANDLING ====================
-
+        // ======================= SPECIAL CARD HANDLING =======================
+        
+        // ============================== REVERSE ==============================
+        
         if (card.getValue() == Card.Value.Reverse) {
             //Log current player before reverse (Debugging)
             System.out.println("Before Reverse: Current Player: " + playerIds[currentPlayer]);
@@ -268,7 +268,8 @@ public class Game {
             System.out.println("After Reverse: Current Player: " + playerIds[currentPlayer]);
             return;
         }
-
+        // =============================== DRAWTWO =============================
+         
         if (card.getValue() == Card.Value.DrawTwo) {
             // Log the current player before handling Draw Two (Debugging)
             System.out.println("Before Draw Two: Current Player: " + playerIds[currentPlayer]);
@@ -298,7 +299,9 @@ public class Game {
             
             return;
         }
-
+        
+        // =============================== DRAWFOUR ============================
+        
         if (card.getValue() == Card.Value.wildFour) {
             // Log the current player before handling Wild Draw Four (Debugging)
             System.out.println("Before Wild Draw Four: Current Player: " + playerIds[currentPlayer]);
@@ -329,38 +332,48 @@ public class Game {
             
             return;
         }
-
+          
+        // =============================== SKIP ================================
+        
         if (card.getValue() == Card.Value.Skip) {
             // Log the current player before skipping (Debugging)
             System.out.println("Before Skip: Current Player: " + playerIds[currentPlayer]);
-            
+
+            // Skip the next player by advancing once before showing the message
+            if (!direction) {
+                currentPlayer = (currentPlayer + 1) % playerIds.length;  // Moves to next player (Clockwise)
+            } else {
+                currentPlayer = (currentPlayer - 1 + playerIds.length) % playerIds.length;  // Moves to previous player to be skipped (Anti-Clockwise)
+            }
+
+            // Display message for who is being skipped
             JLabel message = new JLabel(playerIds[currentPlayer] + " was skipped!");
             message.setFont(new Font("Arial", Font.BOLD, 36));
             JOptionPane.showMessageDialog(null, message);
-            
-            // Skip the next player by advancing twice
+
+            // Log the skipped player (Debugging)
+            System.out.println("Skipped Player: " + playerIds[currentPlayer]);
+
+            // Advance to next player after the skip
             if (!direction) {
-                currentPlayer = (currentPlayer + 1) % playerIds.length;  // Clockwise direction
-                System.out.println("Skipped Player: " + playerIds[currentPlayer]);
-                currentPlayer = (currentPlayer + 1) % playerIds.length;  // Move to the next player after skip
+                currentPlayer = (currentPlayer + 1) % playerIds.length;  // Moves to next player after one skip (Clockwise)
             } else {
-                currentPlayer = (currentPlayer - 1 + playerIds.length) % playerIds.length;  // Counterclockwise direction
-                System.out.println("Skipped Player: " + playerIds[currentPlayer]);
-                currentPlayer = (currentPlayer - 1 + playerIds.length) % playerIds.length;  // Move to the previous player after skip
+                currentPlayer = (currentPlayer - 1 + playerIds.length) % playerIds.length;  // Moves to previous player after one skip (Anti-Clockwise)
             }
-            // Log the player after skipping
+            
+            // Log the player after skipping (Debugging)
             System.out.println("After Skip: Current Player: " + playerIds[currentPlayer]);
             return;
         }
-        
-        // ==================== GENERAL PLAYER ADVANCEMENT ====================    
+
+        // ==================== GENERAL PLAYER ADVANCEMENT ===================== 
         // Handles the general direction for next player advancing
         if (!direction) {
         currentPlayer = (currentPlayer + 1) % playerIds.length;  // Clockwise move
         } else {
             currentPlayer = (currentPlayer - 1 + playerIds.length) % playerIds.length;  // Anti clockwise move
         }
-        
+
         // Log the current player if non action card is played (Debugging)
         System.out.println("Next Player After Regular Play: " + playerIds[currentPlayer]);
     }

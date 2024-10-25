@@ -6,7 +6,7 @@ package COMP603_A2_Uno;
 
 /**
  *
- * @author haydenwinterburn
+ * @author haydenwinterburn & mustafakamish
  */
 public class Main {
     public static void main(String[] args) throws Exception {

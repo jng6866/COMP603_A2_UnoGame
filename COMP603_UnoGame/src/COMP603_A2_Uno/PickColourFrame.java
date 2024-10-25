@@ -34,7 +34,6 @@ public class PickColourFrame extends javax.swing.JFrame {
         this.setResizable(false); 
         // Center the window on the screen
         setLocationRelativeTo(null);
-        this.setVisible(true);
     }
     
     public PickColourFrame(PopUp pop){
@@ -48,7 +47,6 @@ public class PickColourFrame extends javax.swing.JFrame {
         this.setResizable(false); 
         // Center the window on the screen
         setLocationRelativeTo(null);
-        this.setVisible(true);
     }
     
     public Card.Colour chooseColour(Card card){

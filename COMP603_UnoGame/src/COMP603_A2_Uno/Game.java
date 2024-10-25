@@ -238,27 +238,19 @@ public class Game {
         // Remove the card from the player's hand
         pHand.remove(card);
         
-        // ========================= DETERMINE WINNER =========================+
+        // ========================= DETERMINE WINNER ==========================
         if (hasEmptyhand(pid)) {
-<<<<<<< HEAD
-            System.out.println("Winner's PID: " + pid); // Debugging statement
-            String winnerName = pid; //retreives name from pid
-            int[] playerIDs = getPlayerIDs(); //retrieves playerid
-            int winnerId = PlayerDB.getPlayerID(winnerName); 
 
-=======
-    //        JLabel message = new JLabel(pid + " has won the game!");
-    //        message.setFont(new Font("Arial", Font.BOLD, 48));
-    //        JOptionPane.showMessageDialog(null, message);
-            System.out.println("Winner's PID: " + pid);
+            System.out.println("Winner's PID: " + pid); // Debugging statement
+            
             String winnerName = pid;
             int[] playerIDs = getPlayerIDs();
             int winnerId = PlayerDB.getPlayerID(winnerName);
-            int totalTimePlayed = getGameDuration();  
-//            int totalCardsPlayed = getCardsPlayed();
+            int totalTimePlayed = getGameDuration(); 
+            
             GameStatsDB.addGameStats(cardsPlayed, totalTimePlayed);
->>>>>>> 6252d17452eaa0867946c6a82d12cdee8e5ec552
             PlayerDB.addScore(winnerId, 1); 
+            
             new EndScreen(winnerName, playerIDs).setVisible(true);
             gamestage.dispose(); //Closes the gamestage window
             System.exit(0); //Finishing the game

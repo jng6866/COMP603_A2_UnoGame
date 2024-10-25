@@ -22,8 +22,8 @@ public class PlayerDB {
     try (Connection conn = new DBConnection().getConnection();
          PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-        pstmt.setString(1, playerName);
-        pstmt.executeUpdate();
+        pstmt.setString(1, playerName); //set player name
+        pstmt.executeUpdate(); //execute
         System.out.println("Player added: " + playerName);
 
     } catch (SQLException e) {
@@ -34,21 +34,21 @@ public class PlayerDB {
         }
     }
 }
-    public static void getPlayers() {
-        String sql = "SELECT * FROM players";
-
-        try (Connection conn = new DBConnection().getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) {
-
-            while (rs.next()) {
-                System.out.println("Player ID: " + rs.getInt("id") + ", Name: " + rs.getString("name"));
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    public static void getPlayers() {
+//        String sql = "SELECT * FROM players";
+//
+//        try (Connection conn = new DBConnection().getConnection();
+//             PreparedStatement pstmt = conn.prepareStatement(sql);
+//             ResultSet rs = pstmt.executeQuery()) {
+//
+//            while (rs.next()) {
+//                System.out.println("Player ID: " + rs.getInt("id") + ", Name: " + rs.getString("name"));
+//            }
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
     
     public static int getPlayerID(String playerName) {
     int playerID = -1;
@@ -124,17 +124,16 @@ public class PlayerDB {
         return totalScore;
     }
     
-public static List<String> getTop5Players() {
-    // Adjusted to use regular string concatenation for SQL query
-    String sql = 
-        "SELECT p.name AS player_name, SUM(s.score) AS total_wins " +
-        "FROM players p " +
-        "JOIN scores s ON p.id = s.player_id " +
-        "GROUP BY p.name " +
-        "ORDER BY total_wins DESC " +
-        "FETCH FIRST 5 ROWS ONLY";
+    public static List<String> getTop5Players() {
+        String sql = 
+            "SELECT p.name AS player_name, SUM(s.score) AS total_wins " +
+            "FROM players p " +
+            "JOIN scores s ON p.id = s.player_id " +
+            "GROUP BY p.name " +
+            "ORDER BY total_wins DESC " +
+            "FETCH FIRST 5 ROWS ONLY";
     
-    List<String> topPlayers = new ArrayList<>();
+        List<String> topPlayers = new ArrayList<>();
     
         try (Connection conn = new DBConnection().getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql);

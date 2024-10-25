@@ -111,13 +111,13 @@ public class EndScreen extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         winLabel = new javax.swing.JLabel();
-        playButton = new javax.swing.JButton();
-        exitButton = new javax.swing.JButton();
+        playAgainButton = new javax.swing.JButton();
+        saveExitButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        playButton1 = new javax.swing.JButton();
+        mostStatsButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(600, 450));
@@ -128,35 +128,35 @@ public class EndScreen extends javax.swing.JFrame {
         jPanel1.setMaximumSize(new java.awt.Dimension(600, 400));
         jPanel1.setMinimumSize(new java.awt.Dimension(600, 400));
 
-        winLabel.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        winLabel.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
         winLabel.setForeground(new java.awt.Color(255, 255, 255));
         winLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         winLabel.setText("Hayden has won the game!");
 
-        playButton.setBackground(new java.awt.Color(229, 105, 105));
-        playButton.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
-        playButton.setForeground(new java.awt.Color(255, 255, 255));
-        playButton.setText("PLAY AGAIN");
-        playButton.setBorderPainted(false);
-        playButton.setPreferredSize(new java.awt.Dimension(100, 30));
-        playButton.addActionListener(new java.awt.event.ActionListener() {
+        playAgainButton.setBackground(new java.awt.Color(229, 105, 105));
+        playAgainButton.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        playAgainButton.setForeground(new java.awt.Color(255, 255, 255));
+        playAgainButton.setText("PLAY AGAIN");
+        playAgainButton.setBorderPainted(false);
+        playAgainButton.setPreferredSize(new java.awt.Dimension(100, 30));
+        playAgainButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                playButtonActionPerformed(evt);
+                playAgainButtonActionPerformed(evt);
             }
         });
 
-        exitButton.setBackground(new java.awt.Color(229, 105, 105));
-        exitButton.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
-        exitButton.setForeground(new java.awt.Color(255, 255, 255));
-        exitButton.setText("SAVE & EXIT");
-        exitButton.setBorderPainted(false);
-        exitButton.setMaximumSize(new java.awt.Dimension(100, 30));
-        exitButton.setMinimumSize(new java.awt.Dimension(100, 30));
-        exitButton.setPreferredSize(new java.awt.Dimension(120, 30));
-        exitButton.setSize(new java.awt.Dimension(100, 30));
-        exitButton.addActionListener(new java.awt.event.ActionListener() {
+        saveExitButton.setBackground(new java.awt.Color(229, 105, 105));
+        saveExitButton.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        saveExitButton.setForeground(new java.awt.Color(255, 255, 255));
+        saveExitButton.setText("SAVE & EXIT");
+        saveExitButton.setBorderPainted(false);
+        saveExitButton.setMaximumSize(new java.awt.Dimension(100, 30));
+        saveExitButton.setMinimumSize(new java.awt.Dimension(100, 30));
+        saveExitButton.setPreferredSize(new java.awt.Dimension(120, 30));
+        saveExitButton.setSize(new java.awt.Dimension(100, 30));
+        saveExitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                exitButtonActionPerformed(evt);
+                saveExitButtonActionPerformed(evt);
             }
         });
 
@@ -172,15 +172,15 @@ public class EndScreen extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("jLabel4");
 
-        playButton1.setBackground(new java.awt.Color(229, 105, 105));
-        playButton1.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
-        playButton1.setForeground(new java.awt.Color(255, 255, 255));
-        playButton1.setText("MORE STATS");
-        playButton1.setBorderPainted(false);
-        playButton1.setPreferredSize(new java.awt.Dimension(100, 30));
-        playButton1.addActionListener(new java.awt.event.ActionListener() {
+        mostStatsButton.setBackground(new java.awt.Color(229, 105, 105));
+        mostStatsButton.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        mostStatsButton.setForeground(new java.awt.Color(255, 255, 255));
+        mostStatsButton.setText("MORE STATS");
+        mostStatsButton.setBorderPainted(false);
+        mostStatsButton.setPreferredSize(new java.awt.Dimension(100, 30));
+        mostStatsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                playButton1ActionPerformed(evt);
+                mostStatsButtonActionPerformed(evt);
             }
         });
 
@@ -188,35 +188,31 @@ public class EndScreen extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+            .addComponent(winLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(144, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(winLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 138, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
                             .addComponent(jLabel3)
                             .addComponent(jLabel2)
                             .addComponent(jLabel1)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(playButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(playAgainButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(exitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(144, 144, 144))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(playButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(223, 223, 223))
+                                .addComponent(saveExitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(144, 144, 144))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(mostStatsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(223, 223, 223))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(19, 19, 19)
                 .addComponent(winLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
@@ -225,11 +221,11 @@ public class EndScreen extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
-                .addComponent(playButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(mostStatsButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(exitButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(playButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(saveExitButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(playAgainButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31))
         );
 
@@ -247,19 +243,21 @@ public class EndScreen extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void playButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playButtonActionPerformed
+    private void playAgainButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playAgainButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_playButtonActionPerformed
+        this.dispose();
+        new Menu().setVisible(true);
+    }//GEN-LAST:event_playAgainButtonActionPerformed
 
-    private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
+    private void saveExitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveExitButtonActionPerformed
         // TODO add your handling code here:
         System.exit(0);
-    }//GEN-LAST:event_exitButtonActionPerformed
+    }//GEN-LAST:event_saveExitButtonActionPerformed
 
-    private void playButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playButton1ActionPerformed
+    private void mostStatsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostStatsButtonActionPerformed
         MoreStats statsFrame = new MoreStats(); 
         statsFrame.setVisible(true); 
-    }//GEN-LAST:event_playButton1ActionPerformed
+    }//GEN-LAST:event_mostStatsButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -298,14 +296,14 @@ public class EndScreen extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton exitButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JButton playButton;
-    private javax.swing.JButton playButton1;
+    private javax.swing.JButton mostStatsButton;
+    private javax.swing.JButton playAgainButton;
+    private javax.swing.JButton saveExitButton;
     private javax.swing.JLabel winLabel;
     // End of variables declaration//GEN-END:variables
 }

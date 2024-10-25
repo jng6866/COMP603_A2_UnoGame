@@ -3,10 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package COMP603_A2_Uno;
-
+            
 /**
  *
- * @author mustafakamish
+ * @author haydenwinterburn & mustafakamish
  */
 public class MoreStats extends javax.swing.JFrame {
 

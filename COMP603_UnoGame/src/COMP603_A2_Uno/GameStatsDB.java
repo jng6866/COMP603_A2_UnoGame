@@ -12,6 +12,8 @@ package COMP603_A2_Uno;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GameStatsDB {
 
@@ -67,27 +69,27 @@ public class GameStatsDB {
         return totalTime;
     }
 
-    public static int getTotalRoundsPlayed() {
-        String sql = "SELECT COUNT(*) AS total_rounds FROM game_rounds";
-        int totalRounds = 0;
+    public static int getLastGameCardsPlayed() {
+        String sql = "SELECT CARDS_PLAYED FROM GAME_STATS ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY";
+        int lastCardsPlayed = 0;
 
         try (Connection conn = new DBConnection().getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
 
-            if (rs.next()) {
-                totalRounds = rs.getInt("total_rounds");
-            }
+           if (rs.next()) {
+               lastCardsPlayed = rs.getInt("CARDS_PLAYED");
+           }
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return totalRounds;
+    } catch (Exception e) {
+        e.printStackTrace();
     }
+
+    return lastCardsPlayed;
+}
     
     public static int getLastGameTime() {
-        String sql = "SELECT total_time_played FROM game_stats ORDER BY id DESC FETCH FIRST ROW ONLY";
+        String sql = "SELECT TOTAL_TIME_PLAYED FROM GAME_STATS ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY";
         int lastGameTime = 0;
 
         try (Connection conn = new DBConnection().getConnection();
@@ -95,15 +97,15 @@ public class GameStatsDB {
              ResultSet rs = pstmt.executeQuery()) {
 
             if (rs.next()) {
-                lastGameTime = rs.getInt("total_time_played");
+                lastGameTime = rs.getInt("TOTAL_TIME_PLAYED");
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        return lastGameTime;
-    }
+    return lastGameTime;
+    }    
+    
+    
     
     
 }

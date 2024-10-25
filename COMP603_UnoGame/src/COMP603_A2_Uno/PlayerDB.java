@@ -12,6 +12,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PlayerDB {
 
@@ -122,4 +124,32 @@ public class PlayerDB {
         return totalScore;
     }
     
+public static List<String> getTop5Players() {
+    // Adjusted to use regular string concatenation for SQL query
+    String sql = 
+        "SELECT p.name AS player_name, SUM(s.score) AS total_wins " +
+        "FROM players p " +
+        "JOIN scores s ON p.id = s.player_id " +
+        "GROUP BY p.name " +
+        "ORDER BY total_wins DESC " +
+        "FETCH FIRST 5 ROWS ONLY";
+    
+    List<String> topPlayers = new ArrayList<>();
+    
+        try (Connection conn = new DBConnection().getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+            ResultSet rs = pstmt.executeQuery()) {
+        
+           while (rs.next()) {
+               String playerName = rs.getString("player_name");
+                int wins = rs.getInt("total_wins");
+                topPlayers.add(playerName + " - " + wins + " wins"); // Format: PlayerName - Wins
+            }
+        
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    
+        return topPlayers;
+    }    
 }

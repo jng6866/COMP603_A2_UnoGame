@@ -16,11 +16,13 @@ public class EndScreen extends javax.swing.JFrame {
     private String winner;
     private int[] playerIds;
     private String playerStat;
+    GameStage gamestage;
     
-    public EndScreen(String winner, int[] playerIds) {
+    public EndScreen(String winner, int[] playerIds, GameStage gamestage) {
         initComponents();
         this.winner = winner;
-        this.playerIds = playerIds;        
+        this.playerIds = playerIds; 
+        this.gamestage = gamestage;
         System.out.println("Winner received in EndScreen: " + winner);
         if (winner == null) {
             this.winner = "Unknown Player";  // Assign default if winner is null
@@ -232,8 +234,13 @@ public class EndScreen extends javax.swing.JFrame {
 
     private void playAgainButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playAgainButtonActionPerformed
         // TODO add your handling code here:
-        this.dispose();
-        new Menu().setVisible(true);
+    this.dispose(); // Closes EndScreen
+    if (gamestage != null) { // Checks if gamestage is not null (Debugging)
+        gamestage.dispose(); // Closes GameStage (when gamestage is not null)
+    } else {
+        System.out.println("GameStage is null."); // print statement for debugging
+    }
+    new Menu().setVisible(true); // Show the main menu
     }//GEN-LAST:event_playAgainButtonActionPerformed
 
     private void saveExitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveExitButtonActionPerformed

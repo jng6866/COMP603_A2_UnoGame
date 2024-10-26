@@ -33,7 +33,7 @@ public class Game implements GameInterface {
     private int cardsPlayed = 0; // Tracks the total number of cards played in the session
 
     // Constructor - Initialises deck, hands, and game properties
-    public Game(String[] pids) {
+    public Game(String[] pids, GameStage gamestage) {
         deck = new Deck();
         deck.shuffle();
         stockPile = new ArrayList<>();
@@ -242,15 +242,7 @@ public class Game implements GameInterface {
         PlayerDB.addScore(winnerId, 1);
         
         // Show the end screen with winner and player details
-        new EndScreen(winnerName, playerIDs).setVisible(true);
-
-        // Dispose of popUp and gamestage if they exist
-        if (popUp != null) {
-            popUp.dispose();
-        }
-        if (gamestage != null) {
-            gamestage.dispose();
-        }
+        new EndScreen(winnerName, playerIDs, gamestage).setVisible(true);
     }
 
     // Advances to the next player based on the current direction

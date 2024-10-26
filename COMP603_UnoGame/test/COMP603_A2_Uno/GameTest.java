@@ -21,6 +21,7 @@ public class GameTest {
 
     private Game game;
     private String[] playerIds;
+    private GameStage gameStage; 
 
     @BeforeClass
     public static void setUpClass() {
@@ -32,9 +33,9 @@ public class GameTest {
 
     @Before
     public void setUp() {
-        // Initialize the game and players before each test
         playerIds = new String[]{"Player1", "Player2", "Player3"};
-        game = new Game(playerIds);
+        gameStage = new GameStage();
+        game = new Game(playerIds, gameStage); 
     }
 
     @After

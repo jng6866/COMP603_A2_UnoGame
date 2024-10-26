@@ -20,8 +20,7 @@ import javax.swing.ImageIcon;       // Ensures that ImageIcon class is recognize
  * @author haydenwinterburn
  */
 public class GameStage extends javax.swing.JFrame {
-    
-    
+
     ArrayList<String> temp = new ArrayList<>();
     String[] pids;
     Game game;
@@ -34,9 +33,10 @@ public class GameStage extends javax.swing.JFrame {
      */
     public GameStage(ArrayList<String> playerIds) {
         initComponents();
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         temp = playerIds;
         pids = temp.toArray(new String[temp.size()]);
-        game = new Game(pids);
+        game = new Game(pids, this);
         
         for (String playerId : pids) {
         PlayerDB.addPlayer(playerId);

@@ -167,7 +167,7 @@ public class Game implements GameInterface {
             validColour = declaredColour;
             validValue = card.getValue();
         } else if (!validCardPlay(card)) {
-            showMessage("Invalid move. Expected colour: " + validColour + ". Given colour: " + card.getColour() + ".");
+            showMessage("Invalid move. Expected colour: " + validColour + ". Given colour: " + card.getColour() + ". Try again!");
             throw new InvalidColourSubmissionException("Invalid colour", card.getColour(), validColour);
         } else {
             validColour = card.getColour();

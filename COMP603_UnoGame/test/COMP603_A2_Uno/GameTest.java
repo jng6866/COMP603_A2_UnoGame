@@ -32,6 +32,7 @@ public class GameTest {
     }
 
     @Before
+    //initialize game instance
     public void setUp() {
         playerIds = new String[]{"Player1", "Player2", "Player3"};
         gameStage = new GameStage();
@@ -43,6 +44,7 @@ public class GameTest {
     }
 
     @Test
+    //test the start of the game
     public void testStartGame() {
         game.startGame();
         assertNotNull("The game should start with a valid top card.", game.getTopCard());
@@ -53,23 +55,27 @@ public class GameTest {
     }
 
     @Test
+    // tests if current player is correct
     public void testGetCurrentPlayer() {
         assertEquals("The initial current player should be Player1.", "Player1", game.getCurrentPlayer());
     }
 
     @Test
+    //verify initial hand of player
     public void testGetPlayerHand() {
         ArrayList<Card> player1Hand = game.getPlayerHand("Player1");
         assertEquals("Player1 should have 7 cards initially.", 7, player1Hand.size());
     }
 
     @Test
+    // very valid amount of cards
     public void testGetPlayerHandSize() {
         int handSize = game.getPlayerHandSize("Player1");
         assertEquals("Player1 should have 7 cards at the start of the game.", 7, handSize);
     }
 
     @Test
+    //check for valid top card at start of game
     public void testGetTopCard() {
         game.startGame();
         Card topCard = game.getTopCard();
@@ -77,12 +83,14 @@ public class GameTest {
     }
 
     @Test
+    // tests that game duration counts time
     public void testGetGameDuration() {
         int duration = game.getGameDuration();
         assertTrue("Game duration should be a non-negative value.", duration >= 0);
     }
 
     @Test
+    //verify players turn function
     public void testCheckPlayerTurn() {
         try {
             game.checkPlayerTurn("Player1");
@@ -92,6 +100,7 @@ public class GameTest {
     }
 
     @Test
+    // tests that the game end function works with an empty hand
     public void testIsGameOver() {
         // Clear Player1's hand to simulate a game over scenario
         game.getPlayerHand("Player1").clear();
@@ -99,18 +108,21 @@ public class GameTest {
     }
 
     @Test
+    // tests image loading for top card
     public void testGetTopCardImage() {
         ImageIcon topCardImage = game.getTopCardImage();
         assertNotNull("The top card image should not be null.", topCardImage);
     }
 
     @Test
+    //tests wild card colour selection
     public void testSetCardColour() {
         game.setCardColour(Card.Colour.Red);
         assertEquals("The top card color should be set to Red.", Card.Colour.Red, game.getTopCard().getColour());
     }
 
     @Test
+    // tests the draw card function
     public void testSubmitDraw() {
         int initialHandSize = game.getPlayerHandSize("Player1");
         try {
@@ -122,6 +134,7 @@ public class GameTest {
     }
 
     @Test
+    //tests players card placement
     public void testSubmitPlayerCard() {
         game.startGame();
         Card topCard = game.getTopCard();

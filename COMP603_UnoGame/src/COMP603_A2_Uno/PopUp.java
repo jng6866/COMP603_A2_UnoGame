@@ -13,62 +13,77 @@ import javax.swing.JButton;
 
 /**
  *
- * @author haydenwinterburn
+ * @author haydenwinterburn @ mustafa kamish
  */
 public class PopUp extends javax.swing.JFrame {
 
-    String cardImage = "";
-    Game game;
-    ArrayList<Card> playerHand;
-    int choice;
-    ArrayList<JButton> cardButtons;
-    GameStage gamestage;
-    JButton topCardButton;
-    Card.Colour declaredColour;
-    
-    public PopUp(Game game, int index, String cardName, ArrayList<JButton> cardButton, GameStage gamestage, JButton topCardButton) {
-        initComponents();
-        
-        cardImage = cardName;
-        this.game = game;
-        playerHand = game.getPlayerHand(game.getCurrentPlayer());
-        choice = index;
-        this.cardButtons = cardButtons;
-        this.gamestage = gamestage;
-        this.topCardButton = topCardButton;
+    // Stores the image name for the selected card
+    String cardImage = ""; 
 
-        String basePath = System.getProperty("user.dir") + "/resources/images/small/";
-        String imagePath = basePath + cardImage + ".png";
-        File imgFile = new File(imagePath);
+    // Instance of the game currently being played
+    Game game; 
+
+    // Current player's hand of cards
+    ArrayList<Card> playerHand; 
+
+    // Index of the selected card in the player's hand
+    int choice; 
+
+    // List of buttons representing each card in the player's hand
+    ArrayList<JButton> cardButtons; 
+
+    // Reference to the main game window
+    GameStage gamestage; 
+
+    // Button displaying the top card in the play pile
+    JButton topCardButton; 
+
+    // Declared color for wildcard cards
+    Card.Colour declaredColour; 
+
+    public PopUp(Game game, int index, String cardName, ArrayList<JButton> cardButtons, GameStage gamestage, JButton topCardButton) {
+        initComponents();
+
+        cardImage = cardName; // Initialize card image name
+        this.game = game; // Set the game instance
+        playerHand = game.getPlayerHand(game.getCurrentPlayer()); // Get current player's hand
+        choice = index; // Set selected card index
+        this.cardButtons = cardButtons; // Set card button list
+        this.gamestage = gamestage; // Set game stage reference
+        this.topCardButton = topCardButton; // Set top card button reference
+
+        String basePath = System.getProperty("user.dir") + "/resources/images/small/"; // Base path for images
+        String imagePath = basePath + cardImage + ".png"; // Full path for selected card image
+        File imgFile = new File(imagePath); // Create file reference for image
 
         if (imgFile.exists()) {
-            cardLabel.setIcon(new ImageIcon(imgFile.getAbsolutePath()));  // Directly setting the ImageIcon
+            cardLabel.setIcon(new ImageIcon(imgFile.getAbsolutePath())); // Display card image if available
         } else {
-            System.out.println("Card image not found at path: " + imagePath);
-            cardLabel.setText("Image not found");
+            System.out.println("Card image not found at path: " + imagePath); // Log missing image
+            cardLabel.setText("Image not found"); // Display fallback text
         }
-        
-        // Let's the Enter key be used to click the "Use Card" button (shortcut key)
+
+        // Set Enter key as shortcut to "Use Card" button
         jPanel1.getInputMap(javax.swing.JComponent.WHEN_IN_FOCUSED_WINDOW).put(
             javax.swing.KeyStroke.getKeyStroke("ENTER"), "useCardAction");
         jPanel1.getActionMap().put("useCardAction", new javax.swing.AbstractAction() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent e) {
-                playCardButton.doClick();  // Simulate a click on the "Use Card" button
+                playCardButton.doClick(); // Simulate "Use Card" button click
             }
         });
-        
-        // Let's the Escape key be used to click the "Cancel" button
+
+        // Set Escape key as shortcut to "Cancel" button
         jPanel1.getInputMap(javax.swing.JComponent.WHEN_IN_FOCUSED_WINDOW).put(
             javax.swing.KeyStroke.getKeyStroke("ESCAPE"), "cancelAction");
         jPanel1.getActionMap().put("cancelAction", new javax.swing.AbstractAction() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent e) {
-                cancelButton.doClick();  // Simulate a click on the "Cancel" button
+                cancelButton.doClick(); // Simulate "Cancel" button click
             }
         });
-        // Center the window on the screen
-        setLocationRelativeTo(null);
+
+        setLocationRelativeTo(null); // Center the pop-up window on screen
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -171,31 +186,32 @@ public class PopUp extends javax.swing.JFrame {
 
     private void playCardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playCardButtonActionPerformed
         // TODO add your handling code here:
-        PickColourFrame pickColour = new PickColourFrame(this);
-        declaredColour = pickColour.chooseColour(playerHand.get(choice));
+        // Open color selection frame for wild cards
+    PickColourFrame pickColour = new PickColourFrame(this); 
+    declaredColour = pickColour.chooseColour(playerHand.get(choice)); // Get selected color
 
-        if(declaredColour != null){
-            try {
-                game.submitPlayerCard(game.getCurrentPlayer(), playerHand.get(choice), declaredColour);
+    if (declaredColour != null) { 
+        // Proceed if a color is selected
+        try {
+                game.submitPlayerCard(game.getCurrentPlayer(), playerHand.get(choice), declaredColour); // Submit selected card
             } catch (InvalidColourSubmissionException ex) {
-                java.util.logging.Logger.getLogger(PopUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+                java.util.logging.Logger.getLogger(PopUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex); // Log color error
             } catch (InvalidPlayerTurnException ex) {
-                java.util.logging.Logger.getLogger(PopUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+                java.util.logging.Logger.getLogger(PopUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex); // Log turn error
             } catch (InvalidValueSubmissionException ex) {
-                java.util.logging.Logger.getLogger(PopUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+                java.util.logging.Logger.getLogger(PopUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex); // Log value error
             }
 
-            this.revalidate();
+            this.revalidate(); // Refresh pop-up layout
 
-            //change top card of stockpile when a wild card is used
-            if(declaredColour != Card.Colour.Wild){
-                gamestage.setPidName(game.getCurrentPlayer());
-                gamestage.setButtonIcons();
-                gamestage.updateTopCardButton();
-                gamestage.updateTopCardColor();
-                this.dispose();
+            // Update top card if color is not wild
+            if (declaredColour != Card.Colour.Wild) {
+                gamestage.setPidName(game.getCurrentPlayer()); // Update player ID label
+                gamestage.setButtonIcons(); // Refresh card buttons
+                gamestage.updateTopCardButton(); // Update top card display
+                gamestage.updateTopCardColor(); // Update color display for top card
+                this.dispose(); // Close pop-up window
             }
-
         }
     }//GEN-LAST:event_playCardButtonActionPerformed
 

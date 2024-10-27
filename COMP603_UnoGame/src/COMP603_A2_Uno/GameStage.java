@@ -19,7 +19,8 @@ import javax.swing.ImageIcon;       // Ensures that ImageIcon class is recognise
  * Custom GameStage class created using JFrame Form.
  * This class controls the main game window, displaying player hands and 
  * handling interactions during game play.
- * @author haydenwinterburn
+ * 
+ * @author haydenwinterburn & mustafakamish
  */
 public class GameStage extends javax.swing.JFrame {
 

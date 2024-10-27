@@ -13,11 +13,12 @@ public class EndScreen extends javax.swing.JFrame {
     /**
      * Creates new form EndScreen
      */
-    private String winner;
-    private int[] playerIds;
-    private String playerStat;
-    GameStage gamestage;
+    private String winner;      //Winner of the game
+    private int[] playerIds;    //int array of player ids
+    private String playerStat;  //playerstats from database
+    GameStage gamestage;        //implement the gamestage 
     
+    // Constructors
     public EndScreen(String winner, int[] playerIds, GameStage gamestage) {
         initComponents();
         this.winner = winner;
@@ -25,12 +26,13 @@ public class EndScreen extends javax.swing.JFrame {
         this.gamestage = gamestage;
         System.out.println("Winner received in EndScreen: " + winner);
         if (winner == null) {
-            this.winner = "Unknown Player";  // Assign default if winner is null
+            this.winner = "Unknown Player";  // Assign default if winner is null (debugging)
         } else {
             this.winner = winner;  // Store the winner information in a class-level variable
         }
-        winLabel.setText(winner + " has won the game!");
+        winLabel.setText(winner + " has won the game!"); // set the text to include the winners name
         
+        // Display stats from database
         displayPlayerStats();
         // Center the window on the screen
         setLocationRelativeTo(null);
@@ -42,7 +44,8 @@ public class EndScreen extends javax.swing.JFrame {
         jLabel2.setVisible(false);
         jLabel3.setVisible(false);
         jLabel4.setVisible(false);
-
+        
+        // loop through the players based on player id
         for (int i = 0; i < playerIds.length; i++) {
             String playerName = PlayerDB.getPlayerName(playerIds[i]);  // Fetch the player's name from the DB
             int playerScore = PlayerDB.getPlayerTotalScore(playerIds[i]);  // Fetch the player's total score from DB
@@ -50,7 +53,8 @@ public class EndScreen extends javax.swing.JFrame {
             if (playerName == null) {
                 playerName = "Unknown Player";  // Fallback if player name is null
             }
-
+            
+            //Display the plays name and their current score based on wins
             String playerStat = "PLAYER " + (i + 1) + ": " + playerName + " - " + playerScore + " wins)";
 
             // Display stats in the respective labels
@@ -245,12 +249,12 @@ public class EndScreen extends javax.swing.JFrame {
 
     private void saveExitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveExitButtonActionPerformed
         // TODO add your handling code here:
-        System.exit(0);
+        System.exit(0); //exit the program
     }//GEN-LAST:event_saveExitButtonActionPerformed
 
     private void mostStatsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostStatsButtonActionPerformed
-        MoreStats statsFrame = new MoreStats(); 
-        statsFrame.setVisible(true); 
+        MoreStats statsFrame = new MoreStats(); // Opens the More Stats window
+        statsFrame.setVisible(true); // Make it visible
     }//GEN-LAST:event_mostStatsButtonActionPerformed
 
     /**

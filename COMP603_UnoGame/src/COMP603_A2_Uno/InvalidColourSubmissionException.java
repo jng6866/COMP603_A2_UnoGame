@@ -8,30 +8,37 @@ import javax.swing.JLabel;
 
 /**
  *
- * @author haydenwinterburn
+ * @author haydenwinterburn & mustafakamish
  */
-public class InvalidColourSubmissionException extends Exception{
+public class InvalidColourSubmissionException extends Exception {
+
+    // Expected card color for a valid play
     private Card.Colour expected;
+
+    // Actual card color submitted
     private Card.Colour actual;
-    
-    public InvalidColourSubmissionException(String message, Card.Colour actual, Card.Colour expected){
+
+    // Constructor with message, actual, and expected colors
+    public InvalidColourSubmissionException(String message, Card.Colour actual, Card.Colour expected) {
+        super(message);
         this.actual = actual;
         this.expected = expected;
     }
 
-    // Constructor with JLabel (assuming the label is used to display error messages in GUI)
+    // Constructor with JLabel (assumes JLabel is used to display error messages in GUI)
     public InvalidColourSubmissionException(JLabel messageLabel, Card.Colour actual, Card.Colour expected) {
         super("Invalid move. Expected color: " + expected + ", given color: " + actual);
         this.actual = actual;
         this.expected = expected;
-        messageLabel.setText(getMessage()); // Update JLabel with the exception message
+        messageLabel.setText(getMessage()); // Update JLabel with exception message
     }
 
-    // Getter methods for accessing the colors involved in the exception
+    // Getter for expected color
     public Card.Colour getExpected() {
         return expected;
     }
 
+    // Getter for actual color
     public Card.Colour getActual() {
         return actual;
     }

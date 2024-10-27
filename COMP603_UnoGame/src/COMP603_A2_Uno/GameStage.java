@@ -13,117 +13,116 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import java.io.File;                // Import for java.io.File
-import javax.swing.ImageIcon;       // Ensures that ImageIcon class is recognized
+import javax.swing.ImageIcon;       // Ensures that ImageIcon class is recognised
 
 /**
- *
+ * Custom GameStage class created using JFrame Form.
+ * This class controls the main game window, displaying player hands and 
+ * handling interactions during game play.
  * @author haydenwinterburn
  */
 public class GameStage extends javax.swing.JFrame {
 
+    // ArrayList to store temporary player names added by the user
     ArrayList<String> temp = new ArrayList<>();
-    String[] pids;
-    Game game;
-    ArrayList<JButton> cardButtons = new ArrayList<JButton>();
-    ArrayList<String> cardIds;
-    PopUp pu;
+    String[] pids;  // Array of player IDs
+    Game game;  // Instance of the game to handle game mechanics
+    ArrayList<JButton> cardButtons = new ArrayList<JButton>();  // List of card button components
+    ArrayList<String> cardIds;  // List of card IDs representing the player's hand
+    PopUp pu;  // Pop-up window to handle card selection and interactions
     
     /**
      * Creates new form GameStage
      */
     public GameStage(ArrayList<String> playerIds) {
         initComponents();
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        temp = playerIds;
-        pids = temp.toArray(new String[temp.size()]);
-        game = new Game(pids, this);
+        temp = playerIds;  // Assigns player IDs to the temporary ArrayList
+        pids = temp.toArray(new String[temp.size()]);  // Converts ArrayList to array for processing
+        game = new Game(pids, this);  // Creates a new instance of Game with player IDs
         
+        // Adds players to the database for tracking
         for (String playerId : pids) {
-        PlayerDB.addPlayer(playerId);
+            PlayerDB.addPlayer(playerId); // Adds player names to the database
         }
-        // Let's the Escape key be used to click the "Exit" button
+        
+        // Allows the Escape key to act as an 'Exit' button
         jPanel1.getInputMap(javax.swing.JComponent.WHEN_IN_FOCUSED_WINDOW).put(
             javax.swing.KeyStroke.getKeyStroke("ESCAPE"), "exitAction");
         jPanel1.getActionMap().put("exitAction", new javax.swing.AbstractAction() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent e) {
-                exitButton.doClick();  // Simulate a click on the "Exit" button
+                exitButton.doClick();  // Simulates a click on the 'Exit' button
             }
         });
         
-        // Center the window on the screen
+        // Sets the window to open at the centre of the screen
         setLocationRelativeTo(null);
         
-        populateArrayList();
-        game.startGame();
+        populateArrayList();  // Method to populate the list of card buttons
+        game.startGame();  // Calls method to initialise the game start
         
+        // Sets up initial names and card icons for players
         setPidName();
         setButtonIcons();
         updateTopCardColor();
         updateTopCardButton();
 
-        String DownButtonrelativePath = System.getProperty("user.dir") + "/resources/images/small/Deck.png";
-        File downButtonImgFile = new File(DownButtonrelativePath);
-        if (downButtonImgFile.exists()) {
+        // Sets the icon for the 'downButton' component from the image file path
+        String DownButtonrelativePath = System.getProperty("user.dir") + "/resources/images/small/Deck.png"; //Image relative path
+        File downButtonImgFile = new File(DownButtonrelativePath); 
+        if (downButtonImgFile.exists()) { //checking if image exists in directory
             ImageIcon icon = new ImageIcon(downButtonImgFile.getAbsolutePath());
-            downButton.setIcon(icon);
+            downButton.setIcon(icon);  // Sets the icon if the image exists
         } else {
-            System.out.println("Image file not found: " + DownButtonrelativePath);
+            System.out.println("Image file not found: " + DownButtonrelativePath); // print statement if cannot be found
         }
 
     }
+    
+    // Updates the icon of the 'topCardButton' based on the top card in the game
     public void updateTopCardButton(){
         String relativePath = System.getProperty("user.dir") + "/resources/images/small/" + game.getTopCardImage();
-            File imgFile = new File(relativePath);
+        File imgFile = new File(relativePath);
 
         if (imgFile.exists()) {
             ImageIcon icon = new ImageIcon(imgFile.getAbsolutePath());
-            topCardButton.setIcon(icon);
+            topCardButton.setIcon(icon);  // Sets the icon if the image file is found
         } else {
             System.out.println("Image file not found: " + relativePath);
-            topCardButton.setText("Image not found");
+            topCardButton.setText("Image not found");  // Displays message if file is missing
         }
     }
+    
+    // Method to set up the icons for each button in the player's hand
     public void setButtonIcons(){
-        //Get Uno cards as objects, converts to string
         String listString = game.getPlayerHand(game.getCurrentPlayer())
                 .stream().map(Object::toString).collect(Collectors.joining(","));
         String[] cardNames = listString.split(",");
         cardIds = new ArrayList<>(Arrays.asList(cardNames));
         
-//      Old file path type: keep just in case other one fails to work
-//        for(int i = 0; i < cardIds.size(); i++){
-//            cardButtons.get(i).setIcon(new javax.swing.ImageIcon("/Users/haydenwinterburn/images/small/" + cardIds.get(i) + ".png"));
-//        }
-//        // Set all card icons to null
-//        for(int j = cardIds.size(); j < cardButtons.size(); j++){
-//            cardButtons.get(j).setIcon(null);
-//        }
         int totalCards = cardIds.size();
-        for (int i = 0; i < totalCards && i < 7; i++) {  // First 7 buttons (slots 1–7)
-            // Construct a relative path to the images
-            String relativePath = System.getProperty("user.dir") + "/resources/images/small/" + cardIds.get(i) + ".png";
+        for (int i = 0; i < totalCards && i < 7; i++) {  // First row of cards (slots 1–7)
+            String relativePath = System.getProperty("user.dir") + "/resources/images/small/" + cardIds.get(i) + ".png"; // relative path of card images
+            //cardis is the name of each image
+            
             File imgFile = new File(relativePath);
 
             if (imgFile.exists()) {
                 ImageIcon icon = new ImageIcon(imgFile.getAbsolutePath());
-                cardButtons.get(i).setIcon(icon);
+                cardButtons.get(i).setIcon(icon);  // Sets icon for each card button
             } else {
                 System.out.println("Image file not found: " + relativePath);
             }
         }
-        //      Old file path type: keep just in case other one fails to work
-//            for (int j = 7; j < totalCards && j < 14; j++) {  // Buttons (slots 8–14)
-//                cardButtons.get(j).setIcon(new javax.swing.ImageIcon("/Users/haydenwinterburn/images/small/" + cardIds.get(j) + ".png"));
-//            }
-            // If more than 7 cards, place the remaining ones in the bottom row (slots 8–14)
+
+        // If more than 7 cards, place the remaining ones in the bottom row (slots 8–14)
         for (int j = 7; j < totalCards && j < 14; j++) {  // Buttons (slots 8–14)
             String relativePath = System.getProperty("user.dir") + "/resources/images/small/" + cardIds.get(j) + ".png";
             File imgFile = new File(relativePath);
 
             if (imgFile.exists()) {
                 ImageIcon icon = new ImageIcon(imgFile.getAbsolutePath());
-                cardButtons.get(j).setIcon(icon);
+                cardButtons.get(j).setIcon(icon); //sets the card button to the image icon
             } else {
                 System.out.println("Image file not found: " + relativePath);
             }
@@ -135,15 +134,17 @@ public class GameStage extends javax.swing.JFrame {
             }
     }
     
+    // Updates the display text to show the colour of the top card
     public void updateTopCardColor() {
         if (game != null && game.getTopCard() != null) {
             Card topCard = game.getTopCard();
             String colorText = "Top Card Colour: " + topCard.getColour().toString();
-            topCardColourLabel.setText(colorText);
+            topCardColourLabel.setText(colorText);  // Updates the label to show the current colour
         }
     }
     
-    
+    // Populates the array list into each card button
+    // Will add card to array list in order of buttons (1 - 14)
     public void populateArrayList(){
         
         cardButtons.add(jButton1);
@@ -162,13 +163,15 @@ public class GameStage extends javax.swing.JFrame {
         cardButtons.add(jButton14);
     }
     
+    // Setter for pid name
     public void setPidName(){
-        String currentPlayer = game.getCurrentPlayer();
-        pidNameLabel.setText(currentPlayer + "'s Cards");
+        String currentPlayer = game.getCurrentPlayer(); // Retrieves name of current player from game
+        pidNameLabel.setText(currentPlayer + "'s Cards"); // Set the name label to the current player
     }
     
+    // Setter for pid name
     public void setPidName(String currentPlayer){
-        pidNameLabel.setText(currentPlayer + "'s Cards");
+        pidNameLabel.setText(currentPlayer + "'s Cards"); // Set the name label to the current player
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -494,7 +497,19 @@ public class GameStage extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    
+    //====================== JButtons for each card button =====================
+    
+    /**
+     * Action for card buttons: Opens a PopUp window to play the card if it's available.
+     * checks if in the array of players hand is not null (has card)
+     * sets index to number
+     * opens popup if button is clicked
+     * sets popup is visible
+     * cannot resize popup windows
+     */
+    
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         if(cardIds.get(2) != null){
@@ -664,7 +679,8 @@ public class GameStage extends javax.swing.JFrame {
             pu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         }
     }//GEN-LAST:event_jButton13ActionPerformed
-
+    
+    // Draws a card for the current player and updates their hand display
     private void drawCardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drawCardButtonActionPerformed
         // TODO add your handling code here:
         JLabel message = new JLabel(game.getCurrentPlayer() + " drew a card.");
@@ -677,7 +693,7 @@ public class GameStage extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(GameStage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         
-        //Sets name and icons for current player
+        // Updates player name and card icons after drawing a card
         this.setPidName(game.getCurrentPlayer());
         this.setButtonIcons();
         updateTopCardColor();
@@ -692,12 +708,13 @@ public class GameStage extends javax.swing.JFrame {
         // Constructs relative path to Deck.png image
         
     }//GEN-LAST:event_downButtonActionPerformed
-
+    
+    // Exit button for gamestage
     private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
         // TODO add your handling code here:
         
         this.dispose();
-        System.exit(0);
+        System.exit(0); // closes the program
     }//GEN-LAST:event_exitButtonActionPerformed
 
     /**

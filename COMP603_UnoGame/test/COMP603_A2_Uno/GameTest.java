@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 
 /**
  * Unit tests for the Game class.
- * Author: mustafakamish
+ * @author haydenwinterburn & mustafakamish
  */
 public class GameTest {
 
